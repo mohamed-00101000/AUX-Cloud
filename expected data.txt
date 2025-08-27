@@ -1,0 +1,30 @@
+Buffer: "<S>ID_1:32.5,ID_2:32.5,ID_3:28.0,ID_4:45.0,ID_5:30.0,ID_6:30.0<E>"
+
+    "ID_1":   left_inverter_max_temp
+    "ID2":   right_inverter_max_temp
+    "ID3":   ambient_temperature
+    "ID4":   car_speed_gauge
+    "ID_5":  lat
+    "ID6":   lon
+    "ID7":   yaw_rate
+    "ID8":   baro
+    "ID9":   heading_angle
+    "ID10":  heading_dir
+    "ID11":  left_wheel_spd
+    "ID12":  right_wheel_spd
+    "ID13":  left_mosfet_1
+    "ID14":  left_mosfet_2
+    "ID15":  left_mosfet_3
+    "ID16":  left_motor_temp
+    "ID17":  right_mosfet_1
+    "ID18":  right_mosfet_2
+    "ID19":  right_mosfet_3
+    "ID20":  right_motor_temp
+    "ID21":  total_voltage
+    "ID22":  total_current
+    "ID23":  power_consumed
+    "ID24":  energy_consumed
+    "ID25":  soc
+    "ID26":  turnright
+    "ID27":  turnleft
+    "ID28":   lights_v1
