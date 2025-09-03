@@ -1,0 +1,32 @@
+[
+    {
+        "left_inverter_max_temp": 32.5,
+        "right_inverter_max_temp": 32.5,
+        "ambient_temperature": 28.0,
+        "car_speed_gauge": 40,
+        "lat": 25.87,
+        "lon": 30.799999,
+        "yaw_rate": 7.34,
+        "baro": 1038.23,
+        "heading_angle": 208.84,
+        "heading_dir": "West",
+        "left_wheel_spd": 58.18,
+        "right_wheel_spd": 57.36,
+        "left_mosfet_1": 65.15,
+        "left_mosfet_2": 68.49,
+        "left_mosfet_3": 67.65,
+        "left_motor_temp": 75.45,
+        "right_mosfet_1": 91.09,
+        "right_mosfet_2": 84.41,
+        "right_mosfet_3": 91.34,
+        "right_motor_temp": 82.72,
+        "total_voltage": 105.12,
+        "total_current": 4.34,
+        "power_consumed": 13.92,
+        "energy_consumed": 35.69,
+        "soc": 40,
+        "turnright": 1,
+        "turnleft": 1,
+        "lights_v1": 1
+    }
+]
