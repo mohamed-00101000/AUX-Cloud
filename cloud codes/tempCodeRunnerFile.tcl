@@ -1,0 +1,1 @@
+/c/Users/popma/bin/tclsh  "e:\Shared Folders\Uni\Racing team\Final\cloud codes\run.tcl" # on get bash shell
