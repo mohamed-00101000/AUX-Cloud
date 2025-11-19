@@ -1,0 +1,28 @@
+18:31:47 **** Incremental Build of configuration Debug for project NRF_transmitter ****
+make -j12 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F412Rx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:127:3: warning: implicit declaration of function 'srand' [-Wimplicit-function-declaration]
+  127 |   srand(HAL_GetTick());
+      |   ^~~~~
+../Core/Src/main.c: At top level:
+../Core/Src/main.c:94:13: warning: 'nrf_send_bytes' defined but not used [-Wunused-function]
+   94 | static void nrf_send_bytes(const uint8_t *buf, size_t len)
+      |             ^~~~~~~~~~~~~~
+../Core/Src/main.c:71:13: warning: 'set_lat_lon_in_payload' defined but not used [-Wunused-function]
+   71 | static void set_lat_lon_in_payload(char *data, size_t data_sz, float lat, float lon)
+      |             ^~~~~~~~~~~~~~~~~~~~~~
+arm-none-eabi-gcc -o "NRF_transmitter.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\popman\STM32CubeIDE\workspace_1.18.0\NRF_transmitter\STM32F412RGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="NRF_transmitter.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: NRF_transmitter.elf
+ 
+arm-none-eabi-size  NRF_transmitter.elf 
+arm-none-eabi-objdump -h -S NRF_transmitter.elf  > "NRF_transmitter.list"
+   text	   data	    bss	    dec	    hex	filename
+  35404	    468	   2108	  37980	   945c	NRF_transmitter.elf
+Finished building: default.size.stdout
+ 
+Finished building: NRF_transmitter.list
+ 
+
+18:32:04 Build Finished. 0 errors, 3 warnings. (took 17s.844ms)
+

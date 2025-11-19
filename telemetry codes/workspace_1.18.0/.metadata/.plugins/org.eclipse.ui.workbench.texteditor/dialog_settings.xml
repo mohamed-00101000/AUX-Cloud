@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<item key="hasShownOverlayPopupBefore" value="true"/>
+	<item key="replaceBarOpen" value="true"/>
+	<list key="searchhistory">
+		<item value="nrf_send_bytes"/>
+		<item value="MLX90614_Read"/>
+		<item value="rx_data"/>
+		<item value="NRF24L01P_PAYLOAD_LENGTH"/>
+		<item value="GPIOC"/>
+		<item value="callba"/>
+		<item value="nrf24l01p_rx_receive"/>
+		<item value="print"/>
+		<item value="UART1_Printf"/>
+		<item value="NRF24L01P_SPI"/>
+		<item value="gpioc"/>
+		<item value="GPIO_PIN_13"/>
+		<item value="PIN"/>
+		<item value="tx_data"/>
+	</list>
+</section>

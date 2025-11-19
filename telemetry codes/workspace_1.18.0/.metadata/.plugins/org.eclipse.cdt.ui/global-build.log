@@ -1,0 +1,499 @@
+18:34:35 **** Incremental Build of configuration Debug for project NRF_transmitter ****
+make -j12 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F412Rx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc "../Core/Src/usart.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F412Rx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/usart.d" -MT"Core/Src/usart.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/usart.o"
+../Core/Src/usart.c: In function 'uart1_print_hex':
+../Core/Src/usart.c:52:17: warning: implicit declaration of function 'snprintf' [-Wimplicit-function-declaration]
+   52 |         int n = snprintf(p, remaining, "%02X", rx_data[i]);
+      |                 ^~~~~~~~
+../Core/Src/usart.c:22:1: note: include '<stdio.h>' or provide a declaration of 'snprintf'
+   21 | #include "usart.h"
+  +++ |+#include <stdio.h>
+   22 | 
+../Core/Src/usart.c:52:17: warning: incompatible implicit declaration of built-in function 'snprintf' [-Wbuiltin-declaration-mismatch]
+   52 |         int n = snprintf(p, remaining, "%02X", rx_data[i]);
+      |                 ^~~~~~~~
+../Core/Src/usart.c:52:17: note: include '<stdio.h>' or provide a declaration of 'snprintf'
+../Core/Src/usart.c:65:48: warning: implicit declaration of function 'strlen' [-Wimplicit-function-declaration]
+   65 |     HAL_UART_Transmit(&huart1, (uint8_t *)buf, strlen(buf), HAL_MAX_DELAY);
+      |                                                ^~~~~~
+../Core/Src/usart.c:22:1: note: include '<string.h>' or provide a declaration of 'strlen'
+   21 | #include "usart.h"
+  +++ |+#include <string.h>
+   22 | 
+../Core/Src/usart.c:65:48: warning: incompatible implicit declaration of built-in function 'strlen' [-Wbuiltin-declaration-mismatch]
+   65 |     HAL_UART_Transmit(&huart1, (uint8_t *)buf, strlen(buf), HAL_MAX_DELAY);
+      |                                                ^~~~~~
+../Core/Src/usart.c:65:48: note: include '<string.h>' or provide a declaration of 'strlen'
+arm-none-eabi-gcc -o "NRF_transmitter.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\popman\STM32CubeIDE\workspace_1.18.0\NRF_transmitter\STM32F412RGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="NRF_transmitter.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: NRF_transmitter.elf
+ 
+arm-none-eabi-size  NRF_transmitter.elf 
+arm-none-eabi-objdump -h -S NRF_transmitter.elf  > "NRF_transmitter.list"
+   text	   data	    bss	    dec	    hex	filename
+  13524	     12	   1740	  15276	   3bac	NRF_transmitter.elf
+Finished building: default.size.stdout
+ 
+Finished building: NRF_transmitter.list
+ 
+18:34:45 **** Incremental Build of configuration Debug for project NRF_transmitter ****
+make -j12 all 
+arm-none-eabi-size  NRF_transmitter.elf 
+   text	   data	    bss	    dec	    hex	filename
+  13524	     12	   1740	  15276	   3bac	NRF_transmitter.elf
+Finished building: default.size.stdout
+ 
+18:35:02 **** Incremental Build of configuration Debug for project NRF_transmitter ****
+make -j12 all 
+arm-none-eabi-size  NRF_transmitter.elf 
+   text	   data	    bss	    dec	    hex	filename
+  13524	     12	   1740	  15276	   3bac	NRF_transmitter.elf
+Finished building: default.size.stdout
+ 
+15:29:47 **** Incremental Build of configuration Debug for project NRF_transmitter ****
+make -j12 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F412Rx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "NRF_transmitter.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\popman\STM32CubeIDE\workspace_1.18.0\NRF_transmitter\STM32F412RGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="NRF_transmitter.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: NRF_transmitter.elf
+ 
+arm-none-eabi-size  NRF_transmitter.elf 
+arm-none-eabi-objdump -h -S NRF_transmitter.elf  > "NRF_transmitter.list"
+   text	   data	    bss	    dec	    hex	filename
+  12936	     20	   1732	  14688	   3960	NRF_transmitter.elf
+Finished building: default.size.stdout
+ 
+Finished building: NRF_transmitter.list
+ 
+15:35:16 **** Incremental Build of configuration Debug for project NRF_transmitter ****
+make -j12 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F412Rx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "NRF_transmitter.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\popman\STM32CubeIDE\workspace_1.18.0\NRF_transmitter\STM32F412RGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="NRF_transmitter.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: NRF_transmitter.elf
+ 
+arm-none-eabi-size  NRF_transmitter.elf 
+arm-none-eabi-objdump -h -S NRF_transmitter.elf  > "NRF_transmitter.list"
+   text	   data	    bss	    dec	    hex	filename
+  13632	     20	   1732	  15384	   3c18	NRF_transmitter.elf
+Finished building: default.size.stdout
+ 
+Finished building: NRF_transmitter.list
+ 
+16:28:35 **** Incremental Build of configuration Debug for project NRF_transmitter ****
+make -j12 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F412Rx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:124:3: warning: implicit declaration of function 'srand' [-Wimplicit-function-declaration]
+  124 |   srand(HAL_GetTick());
+      |   ^~~~~
+../Core/Src/main.c: At top level:
+../Core/Src/main.c:91:13: warning: 'nrf_send_bytes' defined but not used [-Wunused-function]
+   91 | static void nrf_send_bytes(const uint8_t *buf, size_t len)
+      |             ^~~~~~~~~~~~~~
+../Core/Src/main.c:68:13: warning: 'set_lat_lon_in_payload' defined but not used [-Wunused-function]
+   68 | static void set_lat_lon_in_payload(char *data, size_t data_sz, float lat, float lon)
+      |             ^~~~~~~~~~~~~~~~~~~~~~
+arm-none-eabi-gcc -o "NRF_transmitter.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\popman\STM32CubeIDE\workspace_1.18.0\NRF_transmitter\STM32F412RGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="NRF_transmitter.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: NRF_transmitter.elf
+ 
+arm-none-eabi-size  NRF_transmitter.elf 
+arm-none-eabi-objdump -h -S NRF_transmitter.elf  > "NRF_transmitter.list"
+   text	   data	    bss	    dec	    hex	filename
+  35364	    468	   2076	  37908	   9414	NRF_transmitter.elf
+Finished building: default.size.stdout
+ 
+Finished building: NRF_transmitter.list
+ 
+16:31:00 **** Incremental Build of configuration Debug for project NRF_transmitter ****
+make -j12 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F412Rx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:124:3: warning: implicit declaration of function 'srand' [-Wimplicit-function-declaration]
+  124 |   srand(HAL_GetTick());
+      |   ^~~~~
+../Core/Src/main.c:180:59: warning: implicit declaration of function 'rand' [-Wimplicit-function-declaration]
+  180 |                   float lat = -90.0f  + 180.0f  * ((float)rand() / (float)RAND_MAX);
+      |                                                           ^~~~
+../Core/Src/main.c:180:75: error: 'RAND_MAX' undeclared (first use in this function)
+  180 |                   float lat = -90.0f  + 180.0f  * ((float)rand() / (float)RAND_MAX);
+      |                                                                           ^~~~~~~~
+../Core/Src/main.c:180:75: note: each undeclared identifier is reported only once for each function it appears in
+../Core/Src/main.c: At top level:
+../Core/Src/main.c:91:13: warning: 'nrf_send_bytes' defined but not used [-Wunused-function]
+   91 | static void nrf_send_bytes(const uint8_t *buf, size_t len)
+      |             ^~~~~~~~~~~~~~
+make: *** [Core/Src/subdir.mk:46: Core/Src/main.o] Error 1
+"make -j12 all" terminated with exit code 2. Build might be incomplete.
+16:31:49 **** Incremental Build of configuration Debug for project NRF_transmitter ****
+make -j12 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F412Rx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:124:3: warning: implicit declaration of function 'srand' [-Wimplicit-function-declaration]
+  124 |   srand(HAL_GetTick());
+      |   ^~~~~
+../Core/Src/main.c:180:34: warning: implicit declaration of function 'rand' [-Wimplicit-function-declaration]
+  180 |                   int   lat10 = (rand() % 1801) - 900;    // step = 0.1
+      |                                  ^~~~
+../Core/Src/main.c: At top level:
+../Core/Src/main.c:91:13: warning: 'nrf_send_bytes' defined but not used [-Wunused-function]
+   91 | static void nrf_send_bytes(const uint8_t *buf, size_t len)
+      |             ^~~~~~~~~~~~~~
+arm-none-eabi-gcc -o "NRF_transmitter.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\popman\STM32CubeIDE\workspace_1.18.0\NRF_transmitter\STM32F412RGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="NRF_transmitter.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: NRF_transmitter.elf
+ 
+arm-none-eabi-size  NRF_transmitter.elf 
+arm-none-eabi-objdump -h -S NRF_transmitter.elf  > "NRF_transmitter.list"
+   text	   data	    bss	    dec	    hex	filename
+  38900	    596	   2068	  41564	   a25c	NRF_transmitter.elf
+Finished building: default.size.stdout
+ 
+Finished building: NRF_transmitter.list
+ 
+16:32:20 **** Incremental Build of configuration Debug for project NRF_transmitter ****
+make -j12 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F412Rx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:124:3: warning: implicit declaration of function 'srand' [-Wimplicit-function-declaration]
+  124 |   srand(HAL_GetTick());
+      |   ^~~~~
+../Core/Src/main.c:180:34: warning: implicit declaration of function 'rand' [-Wimplicit-function-declaration]
+  180 |                   int   lat10 = (rand() % 1801) - 900;    // step = 0.1
+      |                                  ^~~~
+../Core/Src/main.c: At top level:
+../Core/Src/main.c:91:13: warning: 'nrf_send_bytes' defined but not used [-Wunused-function]
+   91 | static void nrf_send_bytes(const uint8_t *buf, size_t len)
+      |             ^~~~~~~~~~~~~~
+arm-none-eabi-gcc -o "NRF_transmitter.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\popman\STM32CubeIDE\workspace_1.18.0\NRF_transmitter\STM32F412RGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="NRF_transmitter.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: NRF_transmitter.elf
+ 
+arm-none-eabi-size  NRF_transmitter.elf 
+arm-none-eabi-objdump -h -S NRF_transmitter.elf  > "NRF_transmitter.list"
+   text	   data	    bss	    dec	    hex	filename
+  38908	    596	   2068	  41572	   a264	NRF_transmitter.elf
+Finished building: default.size.stdout
+ 
+Finished building: NRF_transmitter.list
+ 
+16:38:46 **** Incremental Build of configuration Debug for project NRF_transmitter ****
+make -j12 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F412Rx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:124:3: warning: implicit declaration of function 'srand' [-Wimplicit-function-declaration]
+  124 |   srand(HAL_GetTick());
+      |   ^~~~~
+../Core/Src/main.c:180:34: warning: implicit declaration of function 'rand' [-Wimplicit-function-declaration]
+  180 |                   int   lat10 = (rand() % 1801) - 900;    // step = 0.1
+      |                                  ^~~~
+../Core/Src/main.c: At top level:
+../Core/Src/main.c:91:13: warning: 'nrf_send_bytes' defined but not used [-Wunused-function]
+   91 | static void nrf_send_bytes(const uint8_t *buf, size_t len)
+      |             ^~~~~~~~~~~~~~
+arm-none-eabi-gcc -o "NRF_transmitter.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\popman\STM32CubeIDE\workspace_1.18.0\NRF_transmitter\STM32F412RGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="NRF_transmitter.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: NRF_transmitter.elf
+ 
+arm-none-eabi-size  NRF_transmitter.elf 
+arm-none-eabi-objdump -h -S NRF_transmitter.elf  > "NRF_transmitter.list"
+   text	   data	    bss	    dec	    hex	filename
+  38956	    596	   2068	  41620	   a294	NRF_transmitter.elf
+Finished building: default.size.stdout
+ 
+Finished building: NRF_transmitter.list
+ 
+16:40:01 **** Incremental Build of configuration Debug for project NRF_transmitter ****
+make -j12 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F412Rx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:124:3: warning: implicit declaration of function 'srand' [-Wimplicit-function-declaration]
+  124 |   srand(HAL_GetTick());
+      |   ^~~~~
+../Core/Src/main.c:180:34: warning: implicit declaration of function 'rand' [-Wimplicit-function-declaration]
+  180 |                   int   lat10 = (rand() % 1801) - 900;    // step = 0.1
+      |                                  ^~~~
+../Core/Src/main.c: At top level:
+../Core/Src/main.c:91:13: warning: 'nrf_send_bytes' defined but not used [-Wunused-function]
+   91 | static void nrf_send_bytes(const uint8_t *buf, size_t len)
+      |             ^~~~~~~~~~~~~~
+arm-none-eabi-gcc -o "NRF_transmitter.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\popman\STM32CubeIDE\workspace_1.18.0\NRF_transmitter\STM32F412RGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="NRF_transmitter.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: NRF_transmitter.elf
+ 
+arm-none-eabi-size  NRF_transmitter.elf 
+arm-none-eabi-objdump -h -S NRF_transmitter.elf  > "NRF_transmitter.list"
+   text	   data	    bss	    dec	    hex	filename
+  38956	    596	   2068	  41620	   a294	NRF_transmitter.elf
+Finished building: default.size.stdout
+ 
+Finished building: NRF_transmitter.list
+ 
+16:45:31 **** Incremental Build of configuration Debug for project NRF_transmitter ****
+make -j12 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F412Rx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:127:3: warning: implicit declaration of function 'srand' [-Wimplicit-function-declaration]
+  127 |   srand(HAL_GetTick());
+      |   ^~~~~
+../Core/Src/main.c:183:40: warning: implicit declaration of function 'rand' [-Wimplicit-function-declaration]
+  183 |                         int   lat10 = (rand() % 1801) - 900;    // step = 0.1
+      |                                        ^~~~
+../Core/Src/main.c: At top level:
+../Core/Src/main.c:94:13: warning: 'nrf_send_bytes' defined but not used [-Wunused-function]
+   94 | static void nrf_send_bytes(const uint8_t *buf, size_t len)
+      |             ^~~~~~~~~~~~~~
+arm-none-eabi-gcc -o "NRF_transmitter.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\popman\STM32CubeIDE\workspace_1.18.0\NRF_transmitter\STM32F412RGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="NRF_transmitter.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: NRF_transmitter.elf
+ 
+arm-none-eabi-size  NRF_transmitter.elf 
+arm-none-eabi-objdump -h -S NRF_transmitter.elf  > "NRF_transmitter.list"
+   text	   data	    bss	    dec	    hex	filename
+  39076	    596	   2100	  41772	   a32c	NRF_transmitter.elf
+Finished building: default.size.stdout
+ 
+Finished building: NRF_transmitter.list
+ 
+16:46:19 **** Incremental Build of configuration Debug for project NRF_transmitter ****
+make -j12 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F412Rx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:127:3: warning: implicit declaration of function 'srand' [-Wimplicit-function-declaration]
+  127 |   srand(HAL_GetTick());
+      |   ^~~~~
+../Core/Src/main.c: At top level:
+../Core/Src/main.c:94:13: warning: 'nrf_send_bytes' defined but not used [-Wunused-function]
+   94 | static void nrf_send_bytes(const uint8_t *buf, size_t len)
+      |             ^~~~~~~~~~~~~~
+../Core/Src/main.c:71:13: warning: 'set_lat_lon_in_payload' defined but not used [-Wunused-function]
+   71 | static void set_lat_lon_in_payload(char *data, size_t data_sz, float lat, float lon)
+      |             ^~~~~~~~~~~~~~~~~~~~~~
+arm-none-eabi-gcc -o "NRF_transmitter.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\popman\STM32CubeIDE\workspace_1.18.0\NRF_transmitter\STM32F412RGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="NRF_transmitter.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: NRF_transmitter.elf
+ 
+arm-none-eabi-size  NRF_transmitter.elf 
+arm-none-eabi-objdump -h -S NRF_transmitter.elf  > "NRF_transmitter.list"
+   text	   data	    bss	    dec	    hex	filename
+  35388	    468	   2108	  37964	   944c	NRF_transmitter.elf
+Finished building: default.size.stdout
+ 
+Finished building: NRF_transmitter.list
+ 
+16:47:05 **** Incremental Build of configuration Debug for project NRF_transmitter ****
+make -j12 all 
+arm-none-eabi-size  NRF_transmitter.elf 
+   text	   data	    bss	    dec	    hex	filename
+  35388	    468	   2108	  37964	   944c	NRF_transmitter.elf
+Finished building: default.size.stdout
+ 
+16:51:12 **** Incremental Build of configuration Debug for project NRF_transmitter ****
+make -j12 all 
+arm-none-eabi-size  NRF_transmitter.elf 
+   text	   data	    bss	    dec	    hex	filename
+  35388	    468	   2108	  37964	   944c	NRF_transmitter.elf
+Finished building: default.size.stdout
+ 
+16:55:09 **** Incremental Build of configuration Debug for project NRF_transmitter ****
+make -j12 all 
+arm-none-eabi-size  NRF_transmitter.elf 
+   text	   data	    bss	    dec	    hex	filename
+  35388	    468	   2108	  37964	   944c	NRF_transmitter.elf
+Finished building: default.size.stdout
+ 
+16:58:33 **** Incremental Build of configuration Debug for project NRF_transmitter ****
+make -j12 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F412Rx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:127:3: warning: implicit declaration of function 'srand' [-Wimplicit-function-declaration]
+  127 |   srand(HAL_GetTick());
+      |   ^~~~~
+../Core/Src/main.c: At top level:
+../Core/Src/main.c:94:13: warning: 'nrf_send_bytes' defined but not used [-Wunused-function]
+   94 | static void nrf_send_bytes(const uint8_t *buf, size_t len)
+      |             ^~~~~~~~~~~~~~
+arm-none-eabi-gcc -o "NRF_transmitter.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\popman\STM32CubeIDE\workspace_1.18.0\NRF_transmitter\STM32F412RGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="NRF_transmitter.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: NRF_transmitter.elf
+ 
+arm-none-eabi-size  NRF_transmitter.elf 
+arm-none-eabi-objdump -h -S NRF_transmitter.elf  > "NRF_transmitter.list"
+   text	   data	    bss	    dec	    hex	filename
+  38932	    596	   2108	  41636	   a2a4	NRF_transmitter.elf
+Finished building: default.size.stdout
+ 
+Finished building: NRF_transmitter.list
+ 
+16:59:05 **** Incremental Build of configuration Debug for project NRF_transmitter ****
+make -j12 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F412Rx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:127:3: warning: implicit declaration of function 'srand' [-Wimplicit-function-declaration]
+  127 |   srand(HAL_GetTick());
+      |   ^~~~~
+../Core/Src/main.c: At top level:
+../Core/Src/main.c:94:13: warning: 'nrf_send_bytes' defined but not used [-Wunused-function]
+   94 | static void nrf_send_bytes(const uint8_t *buf, size_t len)
+      |             ^~~~~~~~~~~~~~
+../Core/Src/main.c:71:13: warning: 'set_lat_lon_in_payload' defined but not used [-Wunused-function]
+   71 | static void set_lat_lon_in_payload(char *data, size_t data_sz, float lat, float lon)
+      |             ^~~~~~~~~~~~~~~~~~~~~~
+arm-none-eabi-gcc -o "NRF_transmitter.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\popman\STM32CubeIDE\workspace_1.18.0\NRF_transmitter\STM32F412RGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="NRF_transmitter.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: NRF_transmitter.elf
+ 
+arm-none-eabi-size  NRF_transmitter.elf 
+arm-none-eabi-objdump -h -S NRF_transmitter.elf  > "NRF_transmitter.list"
+   text	   data	    bss	    dec	    hex	filename
+  35388	    468	   2108	  37964	   944c	NRF_transmitter.elf
+Finished building: default.size.stdout
+ 
+Finished building: NRF_transmitter.list
+ 
+16:59:57 **** Incremental Build of configuration Debug for project NRF_transmitter ****
+make -j12 all 
+Command canceled
+16:59:59 **** Build of configuration Debug for project NRF_transmitter ****
+make -j12 all 
+arm-none-eabi-size  NRF_transmitter.elf 
+   text	   data	    bss	    dec	    hex	filename
+  35388	    468	   2108	  37964	   944c	NRF_transmitter.elf
+Finished building: default.size.stdout
+ 
+17:22:57 **** Incremental Build of configuration Debug for project NRF_transmitter ****
+make -j12 all 
+arm-none-eabi-size  NRF_transmitter.elf 
+   text	   data	    bss	    dec	    hex	filename
+  35388	    468	   2108	  37964	   944c	NRF_transmitter.elf
+Finished building: default.size.stdout
+ 
+17:23:20 **** Incremental Build of configuration Debug for project NRF_transmitter ****
+make -j12 all 
+arm-none-eabi-size  NRF_transmitter.elf 
+   text	   data	    bss	    dec	    hex	filename
+  35388	    468	   2108	  37964	   944c	NRF_transmitter.elf
+Finished building: default.size.stdout
+ 
+17:23:54 **** Incremental Build of configuration Debug for project NRF_transmitter ****
+make -j12 all 
+arm-none-eabi-size  NRF_transmitter.elf 
+   text	   data	    bss	    dec	    hex	filename
+  35388	    468	   2108	  37964	   944c	NRF_transmitter.elf
+Finished building: default.size.stdout
+ 
+17:47:54 **** Incremental Build of configuration Debug for project NRF_transmitter ****
+make -j12 all 
+arm-none-eabi-size  NRF_transmitter.elf 
+   text	   data	    bss	    dec	    hex	filename
+  35388	    468	   2108	  37964	   944c	NRF_transmitter.elf
+Finished building: default.size.stdout
+ 
+17:50:06 **** Incremental Build of configuration Debug for project NRF_transmitter ****
+make -j12 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F412Rx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:127:3: warning: implicit declaration of function 'srand' [-Wimplicit-function-declaration]
+  127 |   srand(HAL_GetTick());
+      |   ^~~~~
+../Core/Src/main.c: At top level:
+../Core/Src/main.c:94:13: warning: 'nrf_send_bytes' defined but not used [-Wunused-function]
+   94 | static void nrf_send_bytes(const uint8_t *buf, size_t len)
+      |             ^~~~~~~~~~~~~~
+../Core/Src/main.c:71:13: warning: 'set_lat_lon_in_payload' defined but not used [-Wunused-function]
+   71 | static void set_lat_lon_in_payload(char *data, size_t data_sz, float lat, float lon)
+      |             ^~~~~~~~~~~~~~~~~~~~~~
+arm-none-eabi-gcc -o "NRF_transmitter.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\popman\STM32CubeIDE\workspace_1.18.0\NRF_transmitter\STM32F412RGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="NRF_transmitter.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: NRF_transmitter.elf
+ 
+arm-none-eabi-size  NRF_transmitter.elf 
+arm-none-eabi-objdump -h -S NRF_transmitter.elf  > "NRF_transmitter.list"
+   text	   data	    bss	    dec	    hex	filename
+  35388	    468	   2108	  37964	   944c	NRF_transmitter.elf
+Finished building: default.size.stdout
+ 
+Finished building: NRF_transmitter.list
+ 
+17:51:05 **** Incremental Build of configuration Debug for project NRF_transmitter ****
+make -j12 all 
+arm-none-eabi-size  NRF_transmitter.elf 
+   text	   data	    bss	    dec	    hex	filename
+  35388	    468	   2108	  37964	   944c	NRF_transmitter.elf
+Finished building: default.size.stdout
+ 
+17:51:53 **** Incremental Build of configuration Debug for project NRF_transmitter ****
+make -j12 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F412Rx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:127:3: warning: implicit declaration of function 'srand' [-Wimplicit-function-declaration]
+  127 |   srand(HAL_GetTick());
+      |   ^~~~~
+../Core/Src/main.c: At top level:
+../Core/Src/main.c:94:13: warning: 'nrf_send_bytes' defined but not used [-Wunused-function]
+   94 | static void nrf_send_bytes(const uint8_t *buf, size_t len)
+      |             ^~~~~~~~~~~~~~
+arm-none-eabi-gcc -o "NRF_transmitter.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\popman\STM32CubeIDE\workspace_1.18.0\NRF_transmitter\STM32F412RGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="NRF_transmitter.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: NRF_transmitter.elf
+ 
+arm-none-eabi-size  NRF_transmitter.elf 
+arm-none-eabi-objdump -h -S NRF_transmitter.elf  > "NRF_transmitter.list"
+   text	   data	    bss	    dec	    hex	filename
+  38932	    596	   2108	  41636	   a2a4	NRF_transmitter.elf
+Finished building: default.size.stdout
+ 
+Finished building: NRF_transmitter.list
+ 
+17:52:21 **** Incremental Build of configuration Debug for project NRF_transmitter ****
+make -j12 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F412Rx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:127:3: warning: implicit declaration of function 'srand' [-Wimplicit-function-declaration]
+  127 |   srand(HAL_GetTick());
+      |   ^~~~~
+../Core/Src/main.c: At top level:
+../Core/Src/main.c:94:13: warning: 'nrf_send_bytes' defined but not used [-Wunused-function]
+   94 | static void nrf_send_bytes(const uint8_t *buf, size_t len)
+      |             ^~~~~~~~~~~~~~
+../Core/Src/main.c:71:13: warning: 'set_lat_lon_in_payload' defined but not used [-Wunused-function]
+   71 | static void set_lat_lon_in_payload(char *data, size_t data_sz, float lat, float lon)
+      |             ^~~~~~~~~~~~~~~~~~~~~~
+arm-none-eabi-gcc -o "NRF_transmitter.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\popman\STM32CubeIDE\workspace_1.18.0\NRF_transmitter\STM32F412RGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="NRF_transmitter.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: NRF_transmitter.elf
+ 
+arm-none-eabi-size  NRF_transmitter.elf 
+arm-none-eabi-objdump -h -S NRF_transmitter.elf  > "NRF_transmitter.list"
+   text	   data	    bss	    dec	    hex	filename
+  35388	    468	   2108	  37964	   944c	NRF_transmitter.elf
+Finished building: default.size.stdout
+ 
+Finished building: NRF_transmitter.list
+ 
+17:52:43 **** Incremental Build of configuration Debug for project NRF_transmitter ****
+make -j12 all 
+arm-none-eabi-size  NRF_transmitter.elf 
+   text	   data	    bss	    dec	    hex	filename
+  35388	    468	   2108	  37964	   944c	NRF_transmitter.elf
+Finished building: default.size.stdout
+ 
+18:30:47 **** Incremental Build of configuration Debug for project NRF_transmitter ****
+make -j12 all 
+arm-none-eabi-size  NRF_transmitter.elf 
+   text	   data	    bss	    dec	    hex	filename
+  35388	    468	   2108	  37964	   944c	NRF_transmitter.elf
+Finished building: default.size.stdout
+ 
+18:31:47 **** Incremental Build of configuration Debug for project NRF_transmitter ****
+make -j12 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F412Rx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:127:3: warning: implicit declaration of function 'srand' [-Wimplicit-function-declaration]
+  127 |   srand(HAL_GetTick());
+      |   ^~~~~
+../Core/Src/main.c: At top level:
+../Core/Src/main.c:94:13: warning: 'nrf_send_bytes' defined but not used [-Wunused-function]
+   94 | static void nrf_send_bytes(const uint8_t *buf, size_t len)
+      |             ^~~~~~~~~~~~~~
+../Core/Src/main.c:71:13: warning: 'set_lat_lon_in_payload' defined but not used [-Wunused-function]
+   71 | static void set_lat_lon_in_payload(char *data, size_t data_sz, float lat, float lon)
+      |             ^~~~~~~~~~~~~~~~~~~~~~
+arm-none-eabi-gcc -o "NRF_transmitter.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\popman\STM32CubeIDE\workspace_1.18.0\NRF_transmitter\STM32F412RGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="NRF_transmitter.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: NRF_transmitter.elf
+ 
+arm-none-eabi-size  NRF_transmitter.elf 
+arm-none-eabi-objdump -h -S NRF_transmitter.elf  > "NRF_transmitter.list"
+   text	   data	    bss	    dec	    hex	filename
+  35404	    468	   2108	  37980	   945c	NRF_transmitter.elf
+Finished building: default.size.stdout
+ 
+Finished building: NRF_transmitter.list
+ 

@@ -1,0 +1,10 @@
+17:42:39 **** Incremental Build of configuration Debug for project 6_steps_trap_pwm_final ****
+make -j12 all 
+arm-none-eabi-size  6_steps_trap_pwm_final.elf 
+   text	   data	    bss	    dec	    hex	filename
+  14260	     44	   1868	  16172	   3f2c	6_steps_trap_pwm_final.elf
+Finished building: default.size.stdout
+ 
+
+17:42:40 Build Finished. 0 errors, 0 warnings. (took 342ms)
+

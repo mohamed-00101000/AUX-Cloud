@@ -1,0 +1,178 @@
+/* USER CODE BEGIN Header */
+/**
+  ******************************************************************************
+  * @file    usart.c
+  * @brief   This file provides code for the configuration
+  *          of the USART instances.
+  ******************************************************************************
+  * @attention
+  *
+  * Copyright (c) 2025 STMicroelectronics.
+  * All rights reserved.
+  *
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
+  *
+  ******************************************************************************
+  */
+/* USER CODE END Header */
+/* Includes ------------------------------------------------------------------*/
+#include "usart.h"
+
+/* USER CODE BEGIN 0 */
+
+
+/**
+ * @brief  Send raw payload bytes over UART1 (binary).
+ * @param  rx_data: pointer to buffer of length NRF24L01P_PAYLOAD_LENGTH
+ */
+void uart1_send_raw(const uint8_t rx_data[NRF24L01P_PAYLOAD_LENGTH])
+{
+    // Cast to uint8_t* and transmit length bytes
+    HAL_UART_Transmit(&huart1, (uint8_t *)rx_data, NRF24L01P_PAYLOAD_LENGTH, HAL_MAX_DELAY);
+}
+
+/**
+ * @brief  Print payload as hex bytes "AA BB CC ..." over UART1 (human readable).
+ * @param  rx_data: pointer to buffer
+ */
+void uart1_print_hex(const uint8_t rx_data[NRF24L01P_PAYLOAD_LENGTH])
+{
+    // Each byte -> 2 hex chars + 1 space. +1 for null terminator.
+    const size_t bufsize = (NRF24L01P_PAYLOAD_LENGTH * 3) + 1;
+    char buf[ (NRF24L01P_PAYLOAD_LENGTH * 3) + 2 ]; // small margin
+
+    char *p = buf;
+    size_t remaining = bufsize;
+
+    for (size_t i = 0; i < NRF24L01P_PAYLOAD_LENGTH && remaining > 3; ++i)
+    {
+        // write "AA " (3 chars) or "AA" for last if you prefer
+        int n = snprintf(p, remaining, "%02X", rx_data[i]);
+        p += n;
+        remaining -= n;
+        if (i < NRF24L01P_PAYLOAD_LENGTH - 1)
+        {
+            *p++ = ' ';
+            remaining -= 1;
+        }
+    }
+    *p = '\0';
+
+    // optionally add newline
+    const char newline[] = "\r\n";
+    HAL_UART_Transmit(&huart1, (uint8_t *)buf, strlen(buf), HAL_MAX_DELAY);
+    HAL_UART_Transmit(&huart1, (uint8_t *)newline, sizeof(newline)-1, HAL_MAX_DELAY);
+}
+
+/**
+ * @brief  Print payload as ASCII (non-printable -> '.') over UART1.
+ * @param  rx_data: pointer to buffer
+ */
+void uart1_print_ascii(const uint8_t rx_data[NRF24L01P_PAYLOAD_LENGTH])
+{
+    char buf[NRF24L01P_PAYLOAD_LENGTH + 2]; // +1 for newline +1 for safety
+    for (size_t i = 0; i < NRF24L01P_PAYLOAD_LENGTH; ++i)
+    {
+        uint8_t c = rx_data[i];
+        if (c >= 32 && c <= 126) // printable ASCII range
+            buf[i] = (char)c;
+        else
+            buf[i] = '.';
+    }
+    buf[NRF24L01P_PAYLOAD_LENGTH] = '\r';
+    buf[NRF24L01P_PAYLOAD_LENGTH + 1] = '\n';
+    HAL_UART_Transmit(&huart1, (uint8_t *)buf, NRF24L01P_PAYLOAD_LENGTH + 2, HAL_MAX_DELAY);
+}
+
+/* USER CODE END 0 */
+
+UART_HandleTypeDef huart1;
+
+/* USART1 init function */
+
+void MX_USART1_UART_Init(void)
+{
+
+  /* USER CODE BEGIN USART1_Init 0 */
+
+  /* USER CODE END USART1_Init 0 */
+
+  /* USER CODE BEGIN USART1_Init 1 */
+
+  /* USER CODE END USART1_Init 1 */
+  huart1.Instance = USART1;
+  huart1.Init.BaudRate = 115200;
+  huart1.Init.WordLength = UART_WORDLENGTH_8B;
+  huart1.Init.StopBits = UART_STOPBITS_1;
+  huart1.Init.Parity = UART_PARITY_NONE;
+  huart1.Init.Mode = UART_MODE_TX_RX;
+  huart1.Init.HwFlowCtl = UART_HWCONTROL_NONE;
+  huart1.Init.OverSampling = UART_OVERSAMPLING_16;
+  if (HAL_UART_Init(&huart1) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USER CODE BEGIN USART1_Init 2 */
+
+  /* USER CODE END USART1_Init 2 */
+
+}
+
+void HAL_UART_MspInit(UART_HandleTypeDef* uartHandle)
+{
+
+  GPIO_InitTypeDef GPIO_InitStruct = {0};
+  if(uartHandle->Instance==USART1)
+  {
+  /* USER CODE BEGIN USART1_MspInit 0 */
+
+  /* USER CODE END USART1_MspInit 0 */
+    /* USART1 clock enable */
+    __HAL_RCC_USART1_CLK_ENABLE();
+
+    __HAL_RCC_GPIOA_CLK_ENABLE();
+    /**USART1 GPIO Configuration
+    PA9     ------> USART1_TX
+    PA10     ------> USART1_RX
+    */
+    GPIO_InitStruct.Pin = GPIO_PIN_9|GPIO_PIN_10;
+    GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
+    GPIO_InitStruct.Pull = GPIO_NOPULL;
+    GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
+    GPIO_InitStruct.Alternate = GPIO_AF7_USART1;
+    HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+
+  /* USER CODE BEGIN USART1_MspInit 1 */
+
+  /* USER CODE END USART1_MspInit 1 */
+  }
+}
+
+void HAL_UART_MspDeInit(UART_HandleTypeDef* uartHandle)
+{
+
+  if(uartHandle->Instance==USART1)
+  {
+  /* USER CODE BEGIN USART1_MspDeInit 0 */
+
+  /* USER CODE END USART1_MspDeInit 0 */
+    /* Peripheral clock disable */
+    __HAL_RCC_USART1_CLK_DISABLE();
+
+    /**USART1 GPIO Configuration
+    PA9     ------> USART1_TX
+    PA10     ------> USART1_RX
+    */
+    HAL_GPIO_DeInit(GPIOA, GPIO_PIN_9|GPIO_PIN_10);
+
+  /* USER CODE BEGIN USART1_MspDeInit 1 */
+
+  /* USER CODE END USART1_MspDeInit 1 */
+  }
+}
+
+/* USER CODE BEGIN 1 */
+
+/* USER CODE END 1 */

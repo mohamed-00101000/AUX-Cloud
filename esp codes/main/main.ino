@@ -9,22 +9,19 @@
 
   const char* ssid = "Low";
   const char* password = "omega.4612";
+  
+  #define RXD2 16   // RX pin for Serial2
+  #define TXD2 17   // TX pin for Serial2
 
   // const char* ssid = "A50";
   // const char* password = "23456789";
 
-  int ID_m=0;
-
-
-  String getdatafrompcurl = "https://racingteam.rf.gd/new/get.json";
-  int receivedChar;
-  int btnGPIO = 0;
-
   void setup() {
-    Serial.begin(9600);
-    pinMode(btnGPIO, INPUT);  
-    init_wifi(ssid, password);  // Wi-Fi initialization
+    Serial.begin(115200);
+    // Serial2.begin(9600);
 
+    Serial2.begin(115200, SERIAL_8N1, RXD2, TXD2);
+    init_wifi(ssid, password);  // Wi-Fi initialization
     // Initialize all variables to default values
     initializeVariables();
      // open once (append=true to add to existing file)
@@ -33,8 +30,6 @@
 
 
   }
-
-  int counter=0;
 
   void loop() {
       receive_uart();

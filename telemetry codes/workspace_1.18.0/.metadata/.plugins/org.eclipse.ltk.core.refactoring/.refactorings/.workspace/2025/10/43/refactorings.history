@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Delete resource &apos;6_steps_trap_pwm_final&apos;" deleteContents="false" description="Delete resource &apos;6_steps_trap_pwm_final&apos;" element1="/6_steps_trap_pwm_final" flags="7" id="org.eclipse.ltk.core.refactoring.delete.resources" resources="1" stamp="1761132454242"/>
+</session>

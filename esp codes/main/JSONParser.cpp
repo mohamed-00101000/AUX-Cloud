@@ -9,7 +9,6 @@ unsigned long endTime;
 void get_data(const String& url) {
   fetchdatafromjson(url);
 }
-#include "sendftp_fast.h"
 
 // Global variables
 std::map<int, String> variableValues;
