@@ -2,6 +2,11 @@ import socket
 import struct
 import json
 from datetime import datetime
+import os
+   
+output_path = "./htdocs/new"
+os.makedirs(output_path, exist_ok=True)
+
 
 
 
@@ -10,9 +15,7 @@ UDP_PORT = 40000         # must match ESP server_port
 
 PACKET_FORMAT = (
     "<"     # little endian
-    "I"     # device_id
-
-    # ---- original STM32 struct ----
+    "I"     # device_id (FIRST)
     "B"     # start_byte
     "B"     # length
     "H"     # seq
@@ -20,7 +23,7 @@ PACKET_FORMAT = (
     "f f f"  # left_inv, right_inv, ambient
     "H"      # speed
 
-    "f f f f f"  # lat, lon, yaw_rate, baro, heading_angle
+    "f f f f f"  # lat, lon, yaw, baro, heading_angle
     "B"          # heading_dir
 
     "f f f f f f" # left_wheel..left_motor
@@ -31,6 +34,7 @@ PACKET_FORMAT = (
 
     "B"           # checksum
 )
+
 
 
 PACKET_SIZE = struct.calcsize(PACKET_FORMAT)
@@ -44,6 +48,7 @@ def start():
 
     sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     sock.bind((UDP_IP, UDP_PORT))
+    sock.settimeout(1.0) 
 
     return sock
 
@@ -67,9 +72,10 @@ def decode_packet(data):
 def handle_packet(fields, addr):
     idx = 0
 
+    device_id  = fields[idx]; idx+=1
     start_byte = fields[idx]; idx+=1
     length     = fields[idx]; idx+=1
-    device_id  = fields[idx]; idx+=1
+
     seq        = fields[idx]; idx+=1
 
     left_inv   = fields[idx]; idx+=1
@@ -197,21 +203,34 @@ def save_json(fields):
         "soc": soc
     }]
 
-    with open("data.json", "w") as f:
+    with open(os.path.join(output_path, "data.json"), "w") as f:
         json.dump(json_obj, f, indent=4)
 
 def main():
     sock = start()
 
-    while True:
-        data, addr = receive_packet(sock)
+    try:
+        while True:
+            try:
+                data, addr = receive_packet(sock)
+            except socket.timeout:
+                continue 
 
-        fields, err = decode_packet(data)
-        if err:
-            print(f"Decode error from {addr}: {err}")
-            continue
+            fields, err = decode_packet(data)
+            if err:
+                print(f"Decode error from {addr}: {err}")
+                continue
 
-        handle_packet(fields, addr)
+            handle_packet(fields, addr)
+
+    except KeyboardInterrupt:
+        print("\n[SERVER] Ctrl+C detected. Shutting down gracefully...")
+
+    finally:
+        print("[SERVER] Closing socket...")
+        sock.close()
+        print("[SERVER] Shutdown complete.")
+
 
 
 if __name__ == "__main__":

@@ -1,7 +1,7 @@
 [
     {
-        "date": "2025-12-02",
-        "time": "04:45:45",
+        "date": "2025-12-03",
+        "time": "18:30:38",
         "left_inverter_max_temp": 32.5,
         "right_inverter_max_temp": 32.5,
         "ambient_temperature": 28.0,
@@ -26,6 +26,6 @@
         "total_current": 4.340000152587891,
         "power_consumed": 13.920000076293945,
         "energy_consumed": 35.689998626708984,
-        "soc": 74
+        "soc": 96
     }
 ]
