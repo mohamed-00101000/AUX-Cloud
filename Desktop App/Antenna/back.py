@@ -1,0 +1,341 @@
+from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5.QtWidgets import QApplication, QMainWindow, QWidget, QVBoxLayout
+from PyQt5.QtGui import QPainter, QColor, QPen, QBrush
+from PyQt5.QtCore import Qt, QTimer
+from PyQt5.QtWebEngineWidgets import QWebEngineView
+from PyQt5.QtCore import QUrl
+import geocoder
+from PyQt5.QtCore import QThread, pyqtSignal
+import folium
+
+import sys
+import time
+import random
+#import from another files
+from Battery import BatteryWidget
+from Speed_Gauge import CarGaugeWidget
+from front import Ui_MainWindow  # Ensure this import is correct and Ui_MainWindow is properly defined
+from GPS import GPSMapWidget,load_track_data
+from serialcode import Read_From_Serial
+# Global Variables
+
+# Main Window Variables
+Overall_Car_Speed = 80
+Ambient_temp = 27
+Left_Inverter_Max_Temp = 50
+Right_Inverter_Max_Temp = 50
+
+# Thermal Window Variables
+Left_MOSFETs_Temp1 = 41
+Left_MOSFETs_Temp2 = 42
+Left_MOSFETs_Temp3 = 43
+Right_MOSFETs_Temp1 = 51
+Right_MOSFETs_Temp2 = 52
+Right_MOSFETs_Temp3 = 53
+Left_Motor_Temp = 60
+Right_Motor_Temp = 60
+
+# Electrical Window Variables
+Total_Voltage = 48
+Total_Current = 30
+Power_Consumed = 800
+Energy_Consumed = 60000
+SOC = 100
+
+# Physical Quantities' Window Variables
+# Left_Wheel_Speed = 60
+# Right_Wheel_Speed = 55
+Yaw_rate = 1.6
+barometer = 20
+Cars_heading_Angle = 15
+Cars_heading_Direction = 'N'
+
+
+class Worker(QtCore.QThread):
+    update_overall_speed = QtCore.pyqtSignal(int)
+    update_right_wheel_speed = QtCore.pyqtSignal(int)
+    update_left_wheel_speed = QtCore.pyqtSignal(int)
+
+    def run(self):
+        global Overall_Car_Speed, Left_Wheel_Speed, Right_Wheel_Speed
+
+        while True:
+            # Randomly adjust the left and right wheel speeds independently
+            Left_Wheel_Speed = random.randint(50, 70)  # Example: random left wheel speed
+            Right_Wheel_Speed = random.randint(50, 70)  # Example: random right wheel speed
+            Overall_Car_Speed = random.randint(50, 70)
+            # Emit updated values
+            self.update_overall_speed.emit(Overall_Car_Speed)
+            self.update_right_wheel_speed.emit(Right_Wheel_Speed)
+            self.update_left_wheel_speed.emit(Left_Wheel_Speed)
+
+            time.sleep(1)
+
+class ThermalWorker(QThread):
+    update_signal = pyqtSignal(dict)
+
+    def run(self):
+        while True:
+            # Simulate updating thermal variables
+            Left_MOSFETs_Temp1 = random.randint(35, 50)
+            Left_MOSFETs_Temp2 = random.randint(35, 50)
+            Left_MOSFETs_Temp3 = random.randint(35, 50)
+            Right_MOSFETs_Temp1 = random.randint(50, 60)
+            Right_MOSFETs_Temp2 = random.randint(50, 60)
+            Right_MOSFETs_Temp3 = random.randint(50, 60)
+            Left_Motor_Temp = random.randint(55, 65)
+            Right_Motor_Temp = random.randint(55, 65)
+            Ambient_temp = random.randint(55, 65)
+            Left_Inverter_Max_Temp = random.randint(55, 65)
+            Right_Inverter_Max_Temp = random.randint(55, 65)
+
+            self.update_signal.emit({
+                'Left_MOSFETs_Temp1': Left_MOSFETs_Temp1,
+                'Left_MOSFETs_Temp2': Left_MOSFETs_Temp2,
+                'Left_MOSFETs_Temp3': Left_MOSFETs_Temp3,
+                'Right_MOSFETs_Temp1': Right_MOSFETs_Temp1,
+                'Right_MOSFETs_Temp2': Right_MOSFETs_Temp2,
+                'Right_MOSFETs_Temp3': Right_MOSFETs_Temp3,
+                'Left_Motor_Temp': Left_Motor_Temp,
+                'Right_Motor_Temp': Right_Motor_Temp,
+                'Ambient_temp':Ambient_temp,
+                'Left_Inverter_Max_Temp':Left_Inverter_Max_Temp,
+                'Right_Inverter_Max_Temp':Right_Inverter_Max_Temp
+            })
+            self.msleep(500)  # Update every second
+
+
+class ElectricalWorker(QThread):
+    update_signal = pyqtSignal(dict)
+
+    def run(self):
+        while True:
+            # Simulate updating electrical variables
+            Total_Voltage = random.randint(45, 50)
+            Total_Current = random.randint(20, 35)
+            Power_Consumed = random.randint(700, 900)
+            Energy_Consumed = random.randint(59000, 61000)
+
+            self.update_signal.emit({
+                'Total_Voltage': Total_Voltage,
+                'Total_Current': Total_Current,
+                'Power_Consumed': Power_Consumed,
+                'Energy_Consumed': Energy_Consumed
+            })
+            self.msleep(1000)  # Update every second
+
+
+class PhysicalWorker(QThread):
+    update_signal = pyqtSignal(dict)
+
+    def run(self):
+        while True:
+            # Simulate updating physical variables
+            Yaw_rate = random.uniform(1.0, 2.0)
+            barometer = random.randint(18, 22)
+            Cars_heading_Angle = random.randint(0, 360)
+            Cars_heading_Direction = random.choice(['N', 'E', 'S', 'W'])
+
+            self.update_signal.emit({
+                'Yaw_rate': Yaw_rate,
+                'barometer': barometer,
+                'Cars_heading_Angle': Cars_heading_Angle,
+                'Cars_heading_Direction': Cars_heading_Direction
+            })
+            self.msleep(1000)  # Update every second
+
+
+# BackEndClass modified to include GPS Map
+class BackEndClass(QMainWindow, Ui_MainWindow):
+    def __init__(self):
+        super().__init__()
+        self.left_wheel_speed_widget = None
+        self.right_wheel_speed_widget = None
+        self.car_speed_widget = None
+        self.battery_widget = None
+        self.gps_widget = None  # Add a variable to hold the GPS widget
+        self.setupUi(self)
+        self.tabWidget.tabBar().setVisible(False)
+
+        # Setup widgets
+        self.setup_car_speed_widgets()
+        self.setup_battery_widget()
+        self.setup_gps_map()  # Initialize GPS map widget once
+
+        # Connect buttons to their respective functions
+        self.Thermal_Button.clicked.connect(self.Thermal)
+        self.Electrical_Button.clicked.connect(self.Electrical)
+        self.Physical_Button.clicked.connect(self.Physical)
+        self.back_btn_from_Thermal.clicked.connect(self.back_menu)
+        self.back_btn_from_Electrical.clicked.connect(self.back_menu)
+        self.back_btn_from_Physical.clicked.connect(self.back_menu)
+
+        # Start background worker for car speed and wheel speeds
+        self.worker = Worker()
+        self.worker.update_overall_speed.connect(self.update_display_Overall_Speed)
+        self.worker.update_right_wheel_speed.connect(self.update_display_right_wheel_Speed)
+        self.worker.update_left_wheel_speed.connect(self.update_display_left_wheel_Speed)
+        self.worker.start()
+
+        # Start the workers
+        self.thermal_worker = ThermalWorker()
+        self.thermal_worker.update_signal.connect(self.update_display_thermal)
+        self.thermal_worker.start()
+
+        self.electrical_worker = ElectricalWorker()
+        self.electrical_worker.update_signal.connect(self.update_display_electrical)
+        self.electrical_worker.start()
+
+        self.physical_worker = PhysicalWorker()
+        self.physical_worker.update_signal.connect(self.update_display_physical)
+        self.physical_worker.start()
+
+        # Battery level timer
+        self.battery_timer = QTimer(self)
+        self.battery_timer.timeout.connect(self.update_battery_level)
+        self.battery_timer.start(1000)  # Update every second
+
+        # Initialize the LCD displays and other widgets
+        self.Display_Thermal()
+        self.Display_Electrical()
+        self.Display_Physical()
+        self.Display_Main()
+
+    def setup_gps_map(self):
+
+        # Set up the GPS map widget
+        self.gps_widget = GPSMapWidget(gps_coords)
+
+        # Set the layout and geometry if necessary
+        self.GPS_widget.setLayout(QtWidgets.QVBoxLayout())  # Ensure there is a layout
+        self.GPS_widget.layout().addWidget(self.gps_widget)  # Add the GPS widget to your existing GPS widget
+        self.GPS_widget.setGeometry(0, 0, 600, 300)  # Adjust as necessary
+        self.GPS_widget.show()  # Optionally show if not visible
+
+    def update_display_Overall_Speed(self, value):
+        self.car_speed_widget.setValue(value)
+
+    def update_display_right_wheel_Speed(self, value):
+        self.right_wheel_speed_widget.setValue(value)
+
+    def update_display_left_wheel_Speed(self, value):
+        self.left_wheel_speed_widget.setValue(value)
+
+    def update_display_thermal(self, data):
+        self.Left_Mosfets_temp_1_lcd.display(data['Left_MOSFETs_Temp1'])
+        self.Left_Mosfets_temp_2_lcd.display(data['Left_MOSFETs_Temp2'])
+        self.Left_Mosfets_temp_3_lcd.display(data['Left_MOSFETs_Temp3'])
+        self.Right_Mosfets_temp_1_lcd.display(data['Right_MOSFETs_Temp1'])
+        self.Right_Mosfets_temp_2_lcd.display(data['Right_MOSFETs_Temp2'])
+        self.Right_Mosfets_temp_3_lcd.display(data['Right_MOSFETs_Temp3'])
+        self.Left_Motor_temp_lcd.display(data['Left_Motor_Temp'])
+        self.Right_Motor_temp_lcd.display(data['Right_Motor_Temp'])
+        self.right_inverter_max_temp_lcd.display(data['Right_Inverter_Max_Temp'])
+        self.left_inverter_max_temp_lcd.display(data['Left_Inverter_Max_Temp'])
+        self.Ambient_temp_lcd.display(data['Ambient_temp'])
+
+    def update_display_electrical(self, data):
+        self.Total_Voltage_lcd.display(data['Total_Voltage'])
+        self.Total_Current_lcd.display(data['Total_Current'])
+        self.Power_Consumed_lcd.display(data['Power_Consumed'])
+        self.Energy_Consumed_lcd.display(data['Energy_Consumed'])
+
+    def update_display_physical(self, data):
+        self.Yaw_Lcd.display(data['Yaw_rate'])
+        self.Barometer_lcd.display(data['barometer'])
+        self.textBrowser_Headings_Angle.setText(str(data['Cars_heading_Angle']))
+        self.textBrowser_Headings_Litter.setText(data['Cars_heading_Direction'])
+
+    def setup_car_speed_widgets(self):
+        # Set up CarSpeed_widget
+        if self.CarSpeed_widget.layout() is None:
+            layout = QtWidgets.QVBoxLayout(self.CarSpeed_widget)
+            self.CarSpeed_widget.setLayout(layout)
+
+        self.car_speed_widget = CarGaugeWidget(self)
+        self.CarSpeed_widget.layout().addWidget(self.car_speed_widget)
+
+        # Set up RightWheelSpeed_widget
+        if self.RightWheelSpeed_widget.layout() is None:
+            layout = QtWidgets.QVBoxLayout(self.RightWheelSpeed_widget)
+            self.RightWheelSpeed_widget.setLayout(layout)
+
+        self.right_wheel_speed_widget = CarGaugeWidget(self)
+        self.RightWheelSpeed_widget.layout().addWidget(self.right_wheel_speed_widget)
+
+        # Set up LeftWheelSpeed_widget
+        if self.LeftWheelSpeed_widget.layout() is None:
+            layout = QtWidgets.QVBoxLayout(self.LeftWheelSpeed_widget)
+            self.LeftWheelSpeed_widget.setLayout(layout)
+
+        self.left_wheel_speed_widget = CarGaugeWidget(self)
+        self.LeftWheelSpeed_widget.layout().addWidget(self.left_wheel_speed_widget)
+
+    def setup_battery_widget(self):
+        if self.Battery_widget.layout() is None:
+            layout = QtWidgets.QVBoxLayout(self.Battery_widget)
+            self.Battery_widget.setLayout(layout)
+
+        self.battery_widget = BatteryWidget()
+        self.Battery_widget.layout().addWidget(self.battery_widget)
+
+    def update_battery_level(self):
+        global SOC
+        SOC -= 1  # Decrease the battery level as an example
+        if SOC < 0:
+            SOC = 100  # Reset to full battery after depletion
+        self.battery_widget.set_battery_level(SOC)
+
+    def Thermal(self):
+        self.tabWidget.setCurrentIndex(1)
+
+    def Electrical(self):
+        self.tabWidget.setCurrentIndex(2)
+
+    def Physical(self):
+        self.tabWidget.setCurrentIndex(3)
+
+    def back_menu(self):
+        self.tabWidget.setCurrentIndex(0)
+
+    def Display_Main(self):
+        self.left_inverter_max_temp_lcd.display(Left_Inverter_Max_Temp)
+        self.right_inverter_max_temp_lcd.display(Right_Inverter_Max_Temp)
+        self.Ambient_temp_lcd.display(Ambient_temp)
+        print("entered the function")
+
+    def Display_Thermal(self):
+        self.Left_Mosfets_temp_1_lcd.display(Left_MOSFETs_Temp1)
+        self.Left_Mosfets_temp_2_lcd.display(Left_MOSFETs_Temp2)
+        self.Left_Mosfets_temp_3_lcd.display(Left_MOSFETs_Temp3)
+        self.Left_Motor_temp_lcd.display(Left_Motor_Temp)
+        self.Right_Mosfets_temp_1_lcd.display(Right_MOSFETs_Temp1)
+        self.Right_Mosfets_temp_2_lcd.display(Right_MOSFETs_Temp2)
+        self.Right_Mosfets_temp_3_lcd.display(Right_MOSFETs_Temp3)
+        self.Right_Motor_temp_lcd.display(Right_Motor_Temp)
+
+    def Display_Electrical(self):
+        self.Total_Voltage_lcd.display(Total_Voltage)
+        self.Total_Current_lcd.display(Total_Current)
+        self.Power_Consumed_lcd.display(Power_Consumed)
+        self.Energy_Consumed_lcd.display(Energy_Consumed)
+
+    def Display_Physical(self):
+        self.Yaw_Lcd.display(Yaw_rate)
+        self.Barometer_lcd.display(barometer)
+        self.textBrowser_Headings_Angle.setText(str(Cars_heading_Angle))
+        self.textBrowser_Headings_Litter.setText(Cars_heading_Direction)
+
+
+if __name__ == "__main__":
+    app = QApplication(sys.argv)
+    Read_From_Serial()
+    gps_data_file = r"C:\Users\HP\Desktop\Shell track coordinates\sem_apme_2025-track_coordinates.csv"
+    gps_coords = load_track_data(gps_data_file)
+    if not gps_coords:
+        print("No valid GPS data found.")
+        sys.exit(1)
+
+    main_window = BackEndClass()
+    main_window.show()
+    sys.exit(app.exec_())

@@ -1,0 +1,14 @@
+<RCC>
+  <qresource prefix="ShellLogo">
+    <file>Shell.png</file>
+  </qresource>
+  <qresource prefix="Application icon">
+    <file>Application icon.png</file>
+  </qresource>
+  <qresource prefix="SpeedGauge">
+    <file>gauge.png</file>
+  </qresource>
+  <qresource prefix="RT logo">
+    <file>New Racing Team Logo.PNG</file>
+  </qresource>
+</RCC>

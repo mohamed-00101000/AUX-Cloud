@@ -1,0 +1,8 @@
+data.json: data from ESP to Cloud
+https://projectegypt.online/new/data.json
+
+driver.json: number of labs (data from PC to the driver)
+https://projectegypt.online/new/driver.json
+
+get.json: data from PC to ESP
+https://projectegypt.online/new/get.json
