@@ -1,0 +1,1088 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1366</width>
+    <height>768</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>ASURT</string>
+  </property>
+  <property name="windowIcon">
+   <iconset>
+    <normaloff>Application-icon.ico</normaloff>Application-icon.ico</iconset>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">/* -----------------------------------------------------------
+   MAIN WINDOW COLORS
+----------------------------------------------------------- */
+QMainWindow {
+    background: #1a1a1d;       /* ASURT dark gray */
+    color: #e8eefc;
+}
+
+/* -----------------------------------------------------------
+   GROUPBOXES
+----------------------------------------------------------- */
+QGroupBox {
+    border: 1px solid #2b2b2d;
+    border-radius: 12px;
+    margin-top: 24px;
+    padding: 12px;
+}
+
+QGroupBox::title {
+    subcontrol-origin: margin;
+    left: 14px;
+    top: 6px;
+    color: #bfbfc8;
+    font-weight: 600;
+}
+
+/* -----------------------------------------------------------
+   TABS
+----------------------------------------------------------- */
+QTabWidget::pane {
+    border: 0;
+    top: -1px;
+}
+
+QTabBar::tab {
+    background: #101013;
+    color: #bfbfc8;
+    padding: 8px 16px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    margin-right: 2px;
+}
+
+QTabBar::tab:selected {
+    background: #2a0f12;      /* Dark red tone */
+    color: #ffffff;
+    border-bottom: 2px solid #d90429;
+}
+
+/* -----------------------------------------------------------
+   LABEL STYLING
+----------------------------------------------------------- */
+QLabel {
+    color: #e8eefc;
+}
+
+QLabel#titleLabel, QLabel#teamNameLabel {
+    font-size: 28px;
+    font-weight: 900;
+    letter-spacing: 1.2px;
+    color: #ffffff;
+}
+
+/* -----------------------------------------------------------
+   COMBOBOX, SPINBOX, LINEEDIT
+----------------------------------------------------------- */
+QComboBox, QSpinBox, QLineEdit {
+    background: #101013;
+    border: 1px solid #2b2b2d;
+    border-radius: 8px;
+    color: #e8eefc;
+    padding: 4px 8px;
+}
+
+QComboBox:hover, QSpinBox:hover, QLineEdit:hover {
+    border: 1px solid #d90429;
+}
+
+QComboBox {
+    color: #e8eefc;     /* SAME color as other text */
+}
+
+QComboBox QAbstractItemView {
+    color: #e8eefc;         /* text color */
+    background: #101013;    /* dropdown background */
+    selection-background-color: #2a0f12; /* dark red selection */
+    selection-color: #ffffff;
+}
+
+QComboBox::down-arrow {
+    image: none;
+    border: 4px solid #e8eefc;
+    border-top-color: transparent;
+    border-left-color: transparent;
+    border-right-color: transparent;
+}
+
+
+/* -----------------------------------------------------------
+   PROGRESS BARS (Battery, Thermal, Electrical)
+----------------------------------------------------------- */
+QProgressBar {
+    border: 1px solid #2b2b2d;
+    border-radius: 8px;
+    text-align: center;
+    height: 20px;
+    background: #101013;
+    color: #ffffff;
+}
+
+QProgressBar::chunk {
+    background-color: #d90429;      /* Main ASURT red */
+    border-radius: 8px;
+}
+
+/* -----------------------------------------------------------
+   DARKER RED VARIANTS FOR THERMAL RANGES
+----------------------------------------------------------- */
+QProgressBar[thermal="true"]::chunk {
+    background-color: #8b0000;
+}
+
+QProgressBar[electrical="true"]::chunk {
+    background-color: #d90429;
+}
+
+/* -----------------------------------------------------------
+   GENERAL FRAMES
+----------------------------------------------------------- */
+QFrame {
+    background: transparent;
+}
+
+/* Divider frame */
+QFrame#thinDivider {
+    background: #2b2b2d;
+}
+
+/* -----------------------------------------------------------
+   QGRAPHICSVIEW (Track Map)
+----------------------------------------------------------- */
+QGraphicsView {
+    background: #0d0d0f;
+    border: 1px solid #2b2b2d;
+    border-radius: 8px;
+}
+
+/* -----------------------------------------------------------
+   BUTTONS (if added later)
+----------------------------------------------------------- */
+QPushButton {
+    background: #111114;
+    border: 1px solid #2b2b2d;
+    border-radius: 6px;
+    color: white;
+    padding: 6px 12px;
+}
+
+QPushButton:hover {
+    background: #2a0f12;
+    border: 1px solid #d90429;
+}
+
+QPushButton:pressed {
+    background: #d90429;
+}
+
+/* -----------------------------------------------------------
+   MEASUREMENT VALUES — Improved Readability (+2pt, clearer)
+----------------------------------------------------------- */
+
+/* Main measurement values — speed, voltage, temperature, GPS, battery %, etc. */
+QLabel[data-type="measure"] {
+    font-size: 20px;       /* larger and easier to read */
+    font-weight: 700;      /* stronger emphasis */
+    color: #ffffff;        /* brightest text for numeric values */
+}
+
+/* Sub descriptions remain softer */
+QLabel[data-type="subtext"] {
+    font-size: 13px;
+    color: #9aa5b8;
+}
+
+/* Spinboxes, comboboxes, and line edits get a +2 readability boost */
+QSpinBox, QDoubleSpinBox, QLineEdit, QComboBox {
+    font-size: 16px;   /* previously 14px */
+}
+
+/* Unit labels (°C, km/h, V, A, W, etc.) */
+QLabel[data-type="unit"] {
+    font-size: 16px;
+    font-weight: 600;
+    color: #d7d7e0;
+}
+
+
+</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QVBoxLayout" name="verticalLayout_central" stretch="0,0,1">
+    <item>
+     <widget class="QWidget" name="hdr" native="true">
+      <layout class="QHBoxLayout" name="horizontalLayout_header">
+       <property name="leftMargin">
+        <number>12</number>
+       </property>
+       <property name="rightMargin">
+        <number>12</number>
+       </property>
+       <item>
+        <widget class="QLabel" name="teamLogo">
+         <property name="minimumSize">
+          <size>
+           <width>140</width>
+           <height>36</height>
+          </size>
+         </property>
+         <property name="pixmap">
+          <pixmap>../assets/New Racing Team Logo.png</pixmap>
+         </property>
+         <property name="scaledContents">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="titleLabel">
+         <property name="text">
+          <string>ASURT</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <spacer name="spacerHeader">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
+        <widget class="QLabel" name="hostedByLabel">
+         <property name="text">
+          <string>HOSTED BY</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="hostedByLogo">
+         <property name="minimumSize">
+          <size>
+           <width>40</width>
+           <height>40</height>
+          </size>
+         </property>
+         <property name="pixmap">
+          <pixmap>../assets/Shell.png</pixmap>
+         </property>
+         <property name="scaledContents">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item>
+     <widget class="QWidget" name="topInfo" native="true">
+      <layout class="QHBoxLayout" name="horizontalLayout_top">
+       <property name="leftMargin">
+        <number>12</number>
+       </property>
+       <property name="rightMargin">
+        <number>12</number>
+       </property>
+       <item>
+        <widget class="QGroupBox" name="grpSession">
+         <property name="title">
+          <string>SESSION</string>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout_28">
+          <item>
+           <widget class="QComboBox" name="cmbSession">
+            <item>
+             <property name="text">
+              <string>Practice</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Qualifying</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Race</string>
+             </property>
+            </item>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QGroupBox" name="grpLap">
+         <property name="title">
+          <string>Lap</string>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout_29">
+          <item>
+           <widget class="QSpinBox" name="spinLap">
+            <property name="buttonSymbols">
+             <enum>QAbstractSpinBox::UpDownArrows</enum>
+            </property>
+            <property name="minimum">
+             <number>0</number>
+            </property>
+            <property name="maximum">
+             <number>999</number>
+            </property>
+            <property name="value">
+             <number>1</number>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QGroupBox" name="grpSpeedTop">
+         <property name="title">
+          <string>SPEED</string>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout_30">
+          <item>
+           <widget class="QLabel" name="lblSpeedTop">
+            <property name="styleSheet">
+             <string notr="true">QLabel{font-size:18px;font-weight:700;}</string>
+            </property>
+            <property name="text">
+             <string>0 km/h</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QGroupBox" name="grpBattery">
+         <property name="title">
+          <string>BATTERY</string>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout_31">
+          <item>
+           <widget class="QProgressBar" name="progressBattery">
+            <property name="value">
+             <number>10</number>
+            </property>
+            <property name="format">
+             <string>%p%</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QGroupBox" name="grpAmbientTop">
+         <property name="title">
+          <string>AMBIENT</string>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout_32">
+          <item>
+           <widget class="QLabel" name="lblAmbientTop">
+            <property name="styleSheet">
+             <string notr="true">QLabel{font-size:18px;font-weight:700;}</string>
+            </property>
+            <property name="text">
+             <string>0.0 °C</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item>
+     <widget class="QTabWidget" name="tabsMain">
+      <property name="currentIndex">
+       <number>0</number>
+      </property>
+
+      <!-- OVERVIEW TAB -->
+      <widget class="QWidget" name="tabOverview">
+       <attribute name="title">
+        <string>Overview</string>
+       </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout_overview">
+        <property name="leftMargin">
+         <number>12</number>
+        </property>
+        <property name="rightMargin">
+         <number>12</number>
+        </property>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_over1">
+          <item>
+           <widget class="QGroupBox" name="grpVehicleSpeed">
+            <property name="title">
+             <string>VEHICLE SPEED</string>
+            </property>
+            <layout class="QVBoxLayout" name="verticalLayout_vehspd">
+             <item>
+              <widget class="QFrame" name="frameGauge">
+               <property name="minimumSize">
+                <size>
+                 <width>420</width>
+                 <height>220</height>
+                </size>
+               </property>
+               <property name="frameShape">
+                <enum>QFrame::NoFrame</enum>
+               </property>
+               <widget class="QLabel" name="lblGaugeBg">
+                <property name="geometry">
+                 <rect>
+                  <x>0</x>
+                  <y>0</y>
+                  <width>400</width>
+                  <height>200</height>
+                 </rect>
+                </property>
+                <property name="pixmap">
+                 <pixmap>gauge.png</pixmap>
+                </property>
+                <property name="scaledContents">
+                 <bool>true</bool>
+                </property>
+               </widget>
+               <widget class="QLabel" name="lblGaugeNeedle">
+                <property name="geometry">
+                 <rect>
+                  <x>0</x>
+                  <y>0</y>
+                  <width>400</width>
+                  <height>200</height>
+                 </rect>
+                </property>
+                <property name="pixmap">
+                 <pixmap>needle.png</pixmap>
+                </property>
+                <property name="scaledContents">
+                 <bool>true</bool>
+                </property>
+               </widget>
+              </widget>
+             </item>
+             <item>
+              <layout class="QHBoxLayout" name="horizontalLayout_speedval">
+               <item>
+                <spacer name="spacer_g1">
+                 <property name="orientation">
+                  <enum>Qt::Horizontal</enum>
+                 </property>
+                 <property name="sizeHint" stdset="0">
+                  <size>
+                   <width>40</width>
+                   <height>20</height>
+                  </size>
+                 </property>
+                </spacer>
+               </item>
+               <item>
+                <widget class="QLabel" name="lblSpeedValue">
+                 <property name="styleSheet">
+                  <string notr="true">QLabel{font-size:28px;font-weight:800;}</string>
+                 </property>
+                 <property name="text">
+                  <string>0</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QLabel" name="lblSpeedUnits">
+                 <property name="styleSheet">
+                  <string notr="true">QLabel{font-size:16px;}</string>
+                 </property>
+                 <property name="text">
+                  <string>KM/H</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <spacer name="spacer_g2">
+                 <property name="orientation">
+                  <enum>Qt::Horizontal</enum>
+                 </property>
+                 <property name="sizeHint" stdset="0">
+                  <size>
+                   <width>40</width>
+                   <height>20</height>
+                  </size>
+                 </property>
+                </spacer>
+               </item>
+              </layout>
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item>
+           <widget class="QGroupBox" name="grpTrackMap">
+            <property name="title">
+             <string>TRACK MAP</string>
+            </property>
+            <layout class="QVBoxLayout" name="verticalLayout_track">
+             <item>
+              <widget class="QGraphicsView" name="trackMapView">
+               <property name="minimumSize">
+                <size>
+                 <width>520</width>
+                 <height>240</height>
+                </size>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">QGraphicsView{background:#101629;border:1px solid #2b3142;border-radius:8px;}</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <layout class="QGridLayout" name="grid_latlon">
+               <item row="0" column="0">
+                <widget class="QLabel" name="labelGPS">
+                 <property name="text">
+                  <string>GPS</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="1">
+                <widget class="QLabel" name="lblLat">
+                 <property name="text">
+                  <string>Lat 0.0000, Lon 0.0000</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="2">
+                <widget class="QLabel" name="labelHeading">
+                 <property name="text">
+                  <string>HEADING</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="3">
+                <widget class="QLabel" name="lblHeading">
+                 <property name="text">
+                  <string>000°</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="4">
+                <widget class="QLabel" name="lblHeadingDir">
+                 <property name="text">
+                  <string>---</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
+            </layout>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_over2">
+          <item>
+           <widget class="QGroupBox" name="grpPackVoltage">
+            <property name="title">
+             <string>PACK VOLTAGE</string>
+            </property>
+            <layout class="QVBoxLayout" name="verticalLayout_pv">
+             <item>
+              <widget class="QLabel" name="lblPackVoltage">
+               <property name="styleSheet">
+                <string notr="true">QLabel{font-size:18px;font-weight:700;}</string>
+               </property>
+               <property name="text">
+                <string>0.0 V</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="lblPackVoltageSub">
+               <property name="styleSheet">
+                <string notr="true">QLabel{color:#8ea2c8;}</string>
+               </property>
+               <property name="text">
+                <string>Instantaneous DC bus voltage</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item>
+           <widget class="QGroupBox" name="grpInvTemp">
+            <property name="title">
+             <string>INVERTER TEMP (Max MOSFET)</string>
+            </property>
+            <layout class="QVBoxLayout" name="verticalLayout_it">
+             <item>
+              <widget class="QLabel" name="lblInverterTemp">
+               <property name="styleSheet">
+                <string notr="true">QLabel{font-size:18px;font-weight:700;}</string>
+               </property>
+               <property name="text">
+                <string>0.0 °C</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="lblInvTempSub">
+               <property name="styleSheet">
+                <string notr="true">QLabel{color:#8ea2c8;}</string>
+               </property>
+               <property name="text">
+                <string>Max MOSFET case temperature</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item>
+           <spacer name="spacer_over2">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </widget>
+
+      <!-- THERMAL TAB -->
+      <widget class="QWidget" name="tabThermal">
+       <attribute name="title">
+        <string>Thermal</string>
+       </attribute>
+       <layout class="QHBoxLayout" name="horizontalLayout_thermal">
+        <property name="leftMargin">
+         <number>12</number>
+        </property>
+        <property name="rightMargin">
+         <number>12</number>
+        </property>
+        <item>
+         <layout class="QVBoxLayout" name="verticalLayout_thermalLeft">
+          <item>
+           <widget class="QGroupBox" name="grpPowerElectronics">
+            <property name="title">
+             <string>POWER ELECTRONICS TEMPERATURES (°C)</string>
+            </property>
+            <layout class="QGridLayout" name="grid_pe">
+             <item row="0" column="0">
+              <widget class="QLabel" name="labelLeftMos">
+               <property name="text">
+                <string>Left Inverter MOSFET</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="1">
+              <widget class="QProgressBar" name="progressLeftMosfet">
+               <property name="maximum">
+                <number>150</number>
+               </property>
+               <property name="value">
+                <number>0</number>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="0">
+              <widget class="QLabel" name="labelRightMos">
+               <property name="text">
+                <string>Right Inverter MOSFET</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="1">
+              <widget class="QProgressBar" name="progressRightMosfet">
+               <property name="maximum">
+                <number>150</number>
+               </property>
+               <property name="value">
+                <number>0</number>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="0">
+              <widget class="QLabel" name="labelLeftMotor">
+               <property name="text">
+                <string>Left Motor Stator</string>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="1">
+              <widget class="QProgressBar" name="progressLeftMotor">
+               <property name="maximum">
+                <number>180</number>
+               </property>
+               <property name="value">
+                <number>0</number>
+               </property>
+              </widget>
+             </item>
+             <item row="3" column="0">
+              <widget class="QLabel" name="labelRightMotor">
+               <property name="text">
+                <string>Right Motor Stator</string>
+               </property>
+              </widget>
+             </item>
+             <item row="3" column="1">
+              <widget class="QProgressBar" name="progressRightMotor">
+               <property name="maximum">
+                <number>180</number>
+               </property>
+               <property name="value">
+                <number>0</number>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item>
+           <widget class="QGroupBox" name="grpCooling">
+            <property name="title">
+             <string>AMBIENT &amp; INTAKE</string>
+            </property>
+            <layout class="QGridLayout" name="grid_cooling">
+             <item row="0" column="0">
+              <widget class="QLabel" name="labelAmbient">
+               <property name="text">
+                <string>Ambient</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="1">
+              <widget class="QLabel" name="lblAmbient">
+               <property name="text">
+                <string>0.0 °C</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="0">
+              <widget class="QLabel" name="labelIntakeAir">
+               <property name="text">
+                <string>Intake Air</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="1">
+              <widget class="QLabel" name="lblIntakeAir">
+               <property name="text">
+                <string>—</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QVBoxLayout" name="verticalLayout_thermalRight">
+          <item>
+           <widget class="QGroupBox" name="grpThermalMargin">
+            <property name="title">
+             <string>THERMAL MARGIN (SUMMARY)</string>
+            </property>
+            <layout class="QGridLayout" name="grid_margin">
+             <item row="0" column="0">
+              <widget class="QLabel" name="labelMarginInv">
+               <property name="text">
+                <string>Inverter MOSFET</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="1">
+              <widget class="QProgressBar" name="progressMarginInv">
+               <property name="maximum">
+                <number>100</number>
+               </property>
+               <property name="value">
+                <number>0</number>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="0">
+              <widget class="QLabel" name="labelMarginMotor">
+               <property name="text">
+                <string>Motor Stator</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="1">
+              <widget class="QProgressBar" name="progressMarginMotor">
+               <property name="maximum">
+                <number>100</number>
+               </property>
+               <property name="value">
+                <number>0</number>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="0">
+              <widget class="QLabel" name="labelMarginBattery">
+               <property name="text">
+                <string>Battery Pack</string>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="1">
+              <widget class="QProgressBar" name="progressMarginBattery">
+               <property name="maximum">
+                <number>100</number>
+               </property>
+               <property name="value">
+                <number>0</number>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </widget>
+
+      <!-- ELECTRICAL TAB -->
+      <widget class="QWidget" name="tabElectrical">
+       <attribute name="title">
+        <string>Electrical</string>
+       </attribute>
+       <layout class="QHBoxLayout" name="horizontalLayout_elec">
+        <property name="leftMargin">
+         <number>12</number>
+        </property>
+        <property name="rightMargin">
+         <number>12</number>
+        </property>
+        <item>
+         <layout class="QVBoxLayout" name="verticalLayout_elecLeft">
+          <item>
+           <widget class="QGroupBox" name="grpBatteryPack">
+            <property name="title">
+             <string>BATTERY PACK OVERVIEW</string>
+            </property>
+            <layout class="QGridLayout" name="grid_pack">
+             <item row="0" column="0">
+              <widget class="QLabel" name="labelPV">
+               <property name="text">
+                <string>Pack Voltage</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="1">
+              <widget class="QLabel" name="lblPackVoltage_e">
+               <property name="text">
+                <string>0.0 V</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="0">
+              <widget class="QLabel" name="labelPC">
+               <property name="text">
+                <string>Pack Current</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="1">
+              <widget class="QLabel" name="lblPackCurrent">
+               <property name="text">
+                <string>0.0 A</string>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="0">
+              <widget class="QLabel" name="labelSOC">
+               <property name="text">
+                <string>State of Charge</string>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="1">
+              <widget class="QProgressBar" name="progressSOC">
+               <property name="value">
+                <number>0</number>
+               </property>
+               <property name="format">
+                <string>%p %</string>
+               </property>
+              </widget>
+             </item>
+             <item row="3" column="0">
+              <widget class="QLabel" name="labelEnergy">
+               <property name="text">
+                <string>Energy Consumed</string>
+               </property>
+              </widget>
+             </item>
+             <item row="3" column="1">
+              <widget class="QLabel" name="lblEnergyConsumed">
+               <property name="text">
+                <string>0.0 Wh</string>
+               </property>
+              </widget>
+             </item>
+             <item row="4" column="0">
+              <widget class="QLabel" name="labelPower">
+               <property name="text">
+                <string>Power</string>
+               </property>
+              </widget>
+             </item>
+             <item row="4" column="1">
+              <widget class="QLabel" name="lblPower">
+               <property name="text">
+                <string>0.0 W</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QVBoxLayout" name="verticalLayout_elecRight">
+          <item>
+           <widget class="QGroupBox" name="grpPhaseCurrents">
+            <property name="title">
+             <string>INVERTER PHASE CURRENTS</string>
+            </property>
+            <layout class="QGridLayout" name="grid_phase">
+             <item row="0" column="0">
+              <widget class="QLabel" name="labelPhaseA">
+               <property name="text">
+                <string>Phase A</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="1">
+              <widget class="QProgressBar" name="progressPhaseA">
+               <property name="maximum">
+                <number>400</number>
+               </property>
+               <property name="value">
+                <number>0</number>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="0">
+              <widget class="QLabel" name="labelPhaseB">
+               <property name="text">
+                <string>Phase B</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="1">
+              <widget class="QProgressBar" name="progressPhaseB">
+               <property name="maximum">
+                <number>400</number>
+               </property>
+               <property name="value">
+                <number>0</number>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="0">
+              <widget class="QLabel" name="labelPhaseC">
+               <property name="text">
+                <string>Phase C</string>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="1">
+              <widget class="QProgressBar" name="progressPhaseC">
+               <property name="maximum">
+                <number>400</number>
+               </property>
+               <property name="value">
+                <number>0</number>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item>
+           <widget class="QGroupBox" name="grpElectricalHealth">
+            <property name="title">
+             <string>ELECTRICAL HEALTH</string>
+            </property>
+            <layout class="QVBoxLayout" name="verticalLayout_eh">
+             <item>
+              <widget class="QLabel" name="lblHealthPackVoltage">
+               <property name="text">
+                <string>• Pack voltage within expected range</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="lblHealthCurrent">
+               <property name="text">
+                <string>• Current draw nominal</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="lblHealthCellBalance">
+               <property name="text">
+                <string>• Cell balance acceptable</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </widget>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
