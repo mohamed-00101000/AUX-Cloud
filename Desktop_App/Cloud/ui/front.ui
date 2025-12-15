@@ -309,6 +309,117 @@ QWidget#tabThermal QLabel.summaryValue {
     font-weight: 900;
     color: #5fd1ff;
 }
+/* ===========================================================
+   ELECTRICAL TAB
+=========================================================== */
+
+QWidget#tabElectrical {
+    background: transparent;
+}
+
+QWidget#tabElectrical QGroupBox#grpElectricalOverview {
+    background: qlineargradient(
+        x1:0, y1:0, x2:0, y2:1,
+        stop:0 #151922,
+        stop:1 #0f1218
+    );
+    border: 1px solid #2a3140;
+    border-radius: 16px;
+    padding: 24px;
+}
+
+
+QGroupBox.elecCard {
+    background: qlineargradient(
+        x1:0, y1:0, x2:0, y2:1,
+        stop:0 #151922,
+        stop:1 #0f1218
+    );
+    border: 1px solid #2a3140;
+    border-radius: 14px;
+}
+
+QGroupBox.elecCard::title {
+    color: #7fb3ff;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 0.6px;
+}
+
+QWidget#tabElectrical QGroupBox::title {
+    color: #7fb3ff;
+    font-size: 18px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    padding-left: 8px;
+}
+
+
+/* Left text */
+QWidget#tabElectrical QLabel.electricalLabel {
+    font-size: 22px;
+    font-weight: 600;
+    color: #a8b3cf;
+}
+
+
+/* Right values */
+QWidget#tabElectrical QLabel.electricalValue {
+    font-size: 36px;          /* BIG */
+    font-weight: 900;
+    color: #5fd1ff;
+}
+
+
+/* ===========================================================
+   ELECTRICAL TAB — SOC PROGRESS BAR (THICK + LARGE TEXT)
+=========================================================== */
+
+QWidget#tabElectrical QProgressBar#progressElecSOC {
+    min-height: 36px;            /* FORCE thickness */
+    max-height: 36px;
+    border-radius: 18px;
+
+    border: 1px solid #2b3142;
+    background: #101013;
+
+    color: white;
+    font-size: 20px;             /* BIG text inside bar */
+    font-weight: 800;
+    text-align: center;
+}
+
+QWidget#tabElectrical QProgressBar#progressElecSOC::chunk {
+    background: qlineargradient(
+        x1:0, y1:0, x2:1, y2:0,
+        stop:0 #d90429,
+        stop:1 #ff4d6d
+    );
+    border-radius: 18px;
+}
+
+
+/* ===========================================================
+   ELECTRICAL TAB — LARGE DASHBOARD STYLING
+=========================================================== */
+
+QWidget#tabElectrical QLabel.electricalLabel {
+    font-size: 35px;
+    font-weight: 1000;
+    color: #a8b3cf;
+}
+
+QWidget#tabElectrical QLabel.elecValue {
+    font-size: 32px;          /* BIG numbers */
+    font-weight: 900;
+    color: #5fd1ff;
+}
+
+/* Spacing between rows */
+QWidget#tabElectrical QGridLayout {
+    row-gap: 18px;
+}
+
 
 
 
@@ -1192,14 +1303,17 @@ QWidget#tabThermal QLabel.summaryValue {
                </item>
                <item>
                 <widget class="QLabel" name="lblSummaryLeftMos">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
                  <property name="text">
                   <string>0.0 °C</string>
                  </property>
                  <property name="alignment">
-                  <set>Qt::AlignRight|Qt::AlignVCenter</set>
-                 </property>
-                 <property name="class" stdset="0">
-                  <string>measure</string>
+                  <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
                  </property>
                  <property name="class" stdset="0">
                   <string>measure summaryValue</string>
@@ -1238,14 +1352,17 @@ QWidget#tabThermal QLabel.summaryValue {
                </item>
                <item>
                 <widget class="QLabel" name="lblSummaryRightMos">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
                  <property name="text">
                   <string>0.0 °C</string>
                  </property>
                  <property name="alignment">
-                  <set>Qt::AlignRight|Qt::AlignVCenter</set>
-                 </property>
-                 <property name="class" stdset="0">
-                  <string>measure</string>
+                  <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
                  </property>
                  <property name="class" stdset="0">
                   <string>measure summaryValue</string>
@@ -1284,14 +1401,17 @@ QWidget#tabThermal QLabel.summaryValue {
                </item>
                <item>
                 <widget class="QLabel" name="lblSummaryMotor">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
                  <property name="text">
                   <string>0.0 °C</string>
                  </property>
                  <property name="alignment">
-                  <set>Qt::AlignRight|Qt::AlignVCenter</set>
-                 </property>
-                 <property name="class" stdset="0">
-                  <string>measure</string>
+                  <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
                  </property>
                  <property name="class" stdset="0">
                   <string>measure summaryValue</string>
@@ -1330,14 +1450,17 @@ QWidget#tabThermal QLabel.summaryValue {
                </item>
                <item>
                 <widget class="QLabel" name="lblSummaryAmbient">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
                  <property name="text">
                   <string>0.0 °C</string>
                  </property>
                  <property name="alignment">
-                  <set>Qt::AlignRight|Qt::AlignVCenter</set>
-                 </property>
-                 <property name="class" stdset="0">
-                  <string>measure</string>
+                  <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
                  </property>
                  <property name="class" stdset="0">
                   <string>measure summaryValue</string>
@@ -1357,7 +1480,7 @@ QWidget#tabThermal QLabel.summaryValue {
        <attribute name="title">
         <string>Electrical</string>
        </attribute>
-       <layout class="QHBoxLayout" name="horizontalLayout_elec">
+       <layout class="QHBoxLayout" name="layoutElectricalRoot">
         <property name="leftMargin">
          <number>12</number>
         </property>
@@ -1365,199 +1488,166 @@ QWidget#tabThermal QLabel.summaryValue {
          <number>12</number>
         </property>
         <item>
-         <layout class="QVBoxLayout" name="verticalLayout_elecLeft">
-          <item>
-           <widget class="QGroupBox" name="grpBatteryPack">
-            <property name="title">
-             <string>BATTERY PACK OVERVIEW</string>
-            </property>
-            <layout class="QGridLayout" name="grid_pack">
-             <item row="0" column="0">
-              <widget class="QLabel" name="labelPV">
-               <property name="text">
-                <string>Pack Voltage</string>
-               </property>
-              </widget>
-             </item>
-             <item row="0" column="1">
-              <widget class="QLabel" name="lblPackVoltage_e">
-               <property name="text">
-                <string>0.0 V</string>
-               </property>
-               <property name="class" stdset="0">
-                <string>measure</string>
-               </property>
-              </widget>
-             </item>
-             <item row="1" column="0">
-              <widget class="QLabel" name="labelPC">
-               <property name="text">
-                <string>Pack Current</string>
-               </property>
-              </widget>
-             </item>
-             <item row="1" column="1">
-              <widget class="QLabel" name="lblPackCurrent">
-               <property name="text">
-                <string>0.0 A</string>
-               </property>
-               <property name="class" stdset="0">
-                <string>measure</string>
-               </property>
-              </widget>
-             </item>
-             <item row="2" column="0">
-              <widget class="QLabel" name="labelSOC">
-               <property name="text">
-                <string>State of Charge</string>
-               </property>
-              </widget>
-             </item>
-             <item row="2" column="1">
-              <widget class="QProgressBar" name="progressSOC">
-               <property name="value">
-                <number>0</number>
-               </property>
-               <property name="format">
-                <string>%p %</string>
-               </property>
-               <property name="class" stdset="0">
-                <string>measure</string>
-               </property>
-              </widget>
-             </item>
-             <item row="3" column="0">
-              <widget class="QLabel" name="labelEnergy">
-               <property name="text">
-                <string>Energy Consumed</string>
-               </property>
-              </widget>
-             </item>
-             <item row="3" column="1">
-              <widget class="QLabel" name="lblEnergyConsumed">
-               <property name="text">
-                <string>0.0 Wh</string>
-               </property>
-               <property name="class" stdset="0">
-                <string>measure</string>
-               </property>
-              </widget>
-             </item>
-             <item row="4" column="0">
-              <widget class="QLabel" name="labelPower">
-               <property name="text">
-                <string>Power</string>
-               </property>
-              </widget>
-             </item>
-             <item row="4" column="1">
-              <widget class="QLabel" name="lblPower">
-               <property name="text">
-                <string>0.0 W</string>
-               </property>
-               <property name="class" stdset="0">
-                <string>measure</string>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </widget>
-          </item>
-         </layout>
-        </item>
-        <item>
-         <layout class="QVBoxLayout" name="verticalLayout_elecRight">
-          <item>
-           <widget class="QGroupBox" name="grpPhaseCurrents">
-            <property name="title">
-             <string>INVERTER PHASE CURRENTS</string>
-            </property>
-            <layout class="QGridLayout" name="grid_phase">
-             <item row="0" column="0">
-              <widget class="QLabel" name="labelPhaseA">
-               <property name="text">
-                <string>Phase A</string>
-               </property>
-              </widget>
-             </item>
-             <item row="0" column="1">
-              <widget class="QProgressBar" name="progressPhaseA">
-               <property name="maximum">
-                <number>400</number>
-               </property>
-               <property name="value">
-                <number>0</number>
-               </property>
-              </widget>
-             </item>
-             <item row="1" column="0">
-              <widget class="QLabel" name="labelPhaseB">
-               <property name="text">
-                <string>Phase B</string>
-               </property>
-              </widget>
-             </item>
-             <item row="1" column="1">
-              <widget class="QProgressBar" name="progressPhaseB">
-               <property name="maximum">
-                <number>400</number>
-               </property>
-               <property name="value">
-                <number>0</number>
-               </property>
-              </widget>
-             </item>
-             <item row="2" column="0">
-              <widget class="QLabel" name="labelPhaseC">
-               <property name="text">
-                <string>Phase C</string>
-               </property>
-              </widget>
-             </item>
-             <item row="2" column="1">
-              <widget class="QProgressBar" name="progressPhaseC">
-               <property name="maximum">
-                <number>400</number>
-               </property>
-               <property name="value">
-                <number>0</number>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </widget>
-          </item>
-          <item>
-           <widget class="QGroupBox" name="grpElectricalHealth">
-            <property name="title">
-             <string>ELECTRICAL HEALTH</string>
-            </property>
-            <layout class="QVBoxLayout" name="verticalLayout_eh">
-             <item>
-              <widget class="QLabel" name="lblHealthPackVoltage">
-               <property name="text">
-                <string>• Pack voltage within expected range</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QLabel" name="lblHealthCurrent">
-               <property name="text">
-                <string>• Current draw nominal</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QLabel" name="lblHealthCellBalance">
-               <property name="text">
-                <string>• Cell balance acceptable</string>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </widget>
-          </item>
-         </layout>
+         <widget class="QGroupBox" name="grpElectricalOverview">
+          <property name="title">
+           <string>ELECTRICAL OVERVIEW</string>
+          </property>
+          <property name="class" stdset="0">
+           <string>elecCard</string>
+          </property>
+          <layout class="QGridLayout" name="gridElectrical">
+           <item row="0" column="0">
+            <widget class="QLabel" name="label">
+             <property name="font">
+              <font>
+               <pointsize>8</pointsize>
+               <fontweight>DemiBold</fontweight>
+              </font>
+             </property>
+             <property name="text">
+              <string>Pack Voltage</string>
+             </property>
+             <property name="class" stdset="0">
+              <string>electricalLabel</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="1">
+            <widget class="QLabel" name="lblElecVoltage">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="text">
+              <string>0.0 V</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+             <property name="class" stdset="0">
+              <string>electricalValue</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0">
+            <widget class="QLabel" name="label">
+             <property name="font">
+              <font>
+               <pointsize>8</pointsize>
+               <fontweight>DemiBold</fontweight>
+              </font>
+             </property>
+             <property name="text">
+              <string>Pack Current</string>
+             </property>
+             <property name="class" stdset="0">
+              <string>electricalLabel</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="1">
+            <widget class="QLabel" name="lblElecCurrent">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="text">
+              <string>0.0 A</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+             <property name="class" stdset="0">
+              <string>electricalValue</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="0">
+            <widget class="QLabel" name="label">
+             <property name="font">
+              <font>
+               <pointsize>8</pointsize>
+               <fontweight>DemiBold</fontweight>
+              </font>
+             </property>
+             <property name="text">
+              <string>Power</string>
+             </property>
+             <property name="class" stdset="0">
+              <string>electricalLabel</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="1">
+            <widget class="QLabel" name="lblElecPower">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="text">
+              <string>0.0 W</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+             <property name="class" stdset="0">
+              <string>electricalValue</string>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="0">
+            <widget class="QLabel" name="label">
+             <property name="font">
+              <font>
+               <pointsize>8</pointsize>
+               <fontweight>DemiBold</fontweight>
+              </font>
+             </property>
+             <property name="text">
+              <string>Energy Consumed</string>
+             </property>
+             <property name="class" stdset="0">
+              <string>electricalLabel</string>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="1">
+            <widget class="QLabel" name="lblElecEnergy">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="text">
+              <string>0.0 Wh</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+             <property name="class" stdset="0">
+              <string>electricalValue</string>
+             </property>
+            </widget>
+           </item>
+           <item row="4" column="0" colspan="2">
+            <widget class="QProgressBar" name="progressElecSOC">
+             <property name="value">
+              <number>0</number>
+             </property>
+             <property name="format">
+              <string>SOC %p%</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
         </item>
        </layout>
       </widget>
