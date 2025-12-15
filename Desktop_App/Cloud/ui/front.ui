@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1366</width>
-    <height>849</height>
+    <height>922</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -185,11 +185,12 @@ QFrame#thinDivider {
 /* -----------------------------------------------------------
    QGRAPHICSVIEW (Track Map)
 ----------------------------------------------------------- */
-QGraphicsView {
-    background: #0d0d0f;
-    border: 1px solid #2b2b2d;
+QGraphicsView#trackMapView {
+    background: #0d1222;
+    border: 1px solid #2b3142;
     border-radius: 8px;
 }
+
 
 /* -----------------------------------------------------------
    BUTTONS (if added later)
@@ -216,10 +217,18 @@ QPushButton:pressed {
 ----------------------------------------------------------- */
 
 /* Main measurement values — speed, voltage, temperature, GPS, battery %, etc. */
-QLabel[class=&quot;measure&quot;] {
+/* ===========================================================
+   BASE MEASUREMENT LABELS (NON-THERMAL)
+=========================================================== */
+QLabel.measure {
+    font-size: 24px;
     font-weight: 700;
     color: #ffffff;
 }
+
+/* ===========================================================
+   THERMAL TAB — BASE VALUES
+=========================================================== */
 
 /* Sub descriptions remain softer */
 QLabel[data-type=&quot;subtext&quot;] {
@@ -256,7 +265,50 @@ QSpinBox#spinLap QLineEdit {
     border: none;
 }
 
+/* ===========================================================
+   THERMAL TAB — SCOPED STYLING ONLY
+=========================================================== */
 
+QWidget#tabThermal {
+    background: transparent;
+}
+
+QWidget#tabThermal QGroupBox {
+    background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #151922, stop:1 #0f1218);
+    border: 1px solid #2a3140;
+    border-radius: 14px;
+}
+
+QWidget#tabThermal QGroupBox::title {
+    color: #7fb3ff;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 0.6px;
+}
+
+QLabel.measure {
+    font-size: 22px;
+    font-weight: 700;
+    color: #ffffff;
+}
+
+QWidget#tabThermal QLabel.measure {
+    font-size: 26px;
+    font-weight: 800;
+    color: #eaf1ff;
+}
+
+QWidget#tabThermal QLabel.summaryText {
+    font-size: 26px;
+    font-weight: 600;
+    color: #a8b3cf;
+}
+
+QWidget#tabThermal QLabel.summaryValue {
+    font-size: 36px;
+    font-weight: 900;
+    color: #5fd1ff;
+}
 
 
 
@@ -321,7 +373,7 @@ QSpinBox#spinLap QLineEdit {
           <string>HOSTED BY</string>
          </property>
          <property name="alignment">
-          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          <set>Qt::AlignRight|Qt::AlignVCenter</set>
          </property>
         </widget>
        </item>
@@ -454,6 +506,31 @@ QSpinBox#spinLap QLineEdit {
         </widget>
        </item>
        <item>
+        <widget class="QGroupBox" name="grpTimeTop">
+         <property name="title">
+          <string>TIME</string>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout_timeTop">
+          <item>
+           <widget class="QLabel" name="lblTimeTop">
+            <property name="styleSheet">
+             <string notr="true">QLabel{}</string>
+            </property>
+            <property name="text">
+             <string>--:--:--</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+            <property name="class" stdset="0">
+             <string>measure</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
         <widget class="QGroupBox" name="grpAmbientTop">
          <property name="title">
           <string>AMBIENT</string>
@@ -506,68 +583,51 @@ QSpinBox#spinLap QLineEdit {
             </property>
             <layout class="QVBoxLayout" name="verticalLayout_vehspd">
              <item>
-
               <widget class="QFrame" name="frameGauge">
-<property name="sizePolicy">
- <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-  <horstretch>1</horstretch>
-  <verstretch>1</verstretch>
- </sizepolicy>
-</property>
-
-
-
- <layout class="QStackedLayout" name="stackedGauge">
- <property name="stackingMode">
- <enum>QStackedLayout::StackAll</enum>
-</property>
-
-  <!-- BACKGROUND -->
-  <item>
-   <widget class="QLabel" name="lblGaugeBg">
-    <property name="pixmap">
-     <pixmap>../assets/new_gauge.png</pixmap>
-    </property>
-    <property name="sizePolicy">
-    <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-    <horstretch>1</horstretch>
-    <verstretch>1</verstretch>
-    </sizepolicy>
-    </property>
-
-    <property name="scaledContents">
-     <bool>true</bool>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignCenter</set>
-    </property>
-   </widget>
-  </item>
-
-  <!-- NEEDLE -->
-  <item>
-   <widget class="QLabel" name="lblGaugeNeedle">
-    <property name="pixmap">
-     <pixmap>../assets/new_needle.png</pixmap>
-    </property>
-    <property name="sizePolicy">
- <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-  <horstretch>1</horstretch>
-  <verstretch>1</verstretch>
- </sizepolicy>
-</property>
-
-    <property name="scaledContents">
-     <bool>true</bool>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignCenter</set>
-    </property>
-   </widget>
-  </item>
- </layout>
-</widget>
-
+               <property name="minimumSize">
+                <size>
+                 <width>400</width>
+                 <height>260</height>
+                </size>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">background: transparent;</string>
+               </property>
+               <layout class="QGridLayout" name="stackedGauge">
+                <item row="0" column="0">
+                 <widget class="QLabel" name="lblGaugeBg">
+                  <property name="pixmap">
+                   <pixmap>../assets/new_gauge.png</pixmap>
+                  </property>
+                  <property name="scaledContents">
+                   <bool>true</bool>
+                  </property>
+                  <property name="alignment">
+                   <set>Qt::AlignCenter</set>
+                  </property>
+                 </widget>
+                </item>
+                <item row="0" column="0">
+                 <widget class="QLabel" name="lblGaugeNeedle">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                    <horstretch>1</horstretch>
+                    <verstretch>1</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="pixmap">
+                   <pixmap>../assets/new_needle.png</pixmap>
+                  </property>
+                  <property name="scaledContents">
+                   <bool>true</bool>
+                  </property>
+                  <property name="alignment">
+                   <set>Qt::AlignCenter</set>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </widget>
              </item>
              <item>
               <layout class="QHBoxLayout" name="horizontalLayout_speedval">
@@ -764,6 +824,70 @@ QSpinBox#spinLap QLineEdit {
            </widget>
           </item>
           <item>
+           <widget class="QGroupBox" name="grpLeftWheelSpeed">
+            <property name="title">
+             <string>LEFT WHEEL SPEED</string>
+            </property>
+            <layout class="QVBoxLayout" name="verticalLayout_lws">
+             <item>
+              <widget class="QLabel" name="lblLeftWheelSpeed">
+               <property name="styleSheet">
+                <string notr="true">QLabel{}</string>
+               </property>
+               <property name="text">
+                <string>0.0 km/h</string>
+               </property>
+               <property name="class" stdset="0">
+                <string>measure</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="lblLeftWheelSpeedSub">
+               <property name="styleSheet">
+                <string notr="true">QLabel{color:#8ea2c8;}</string>
+               </property>
+               <property name="text">
+                <string>Left wheel speed</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item>
+           <widget class="QGroupBox" name="grpRightWheelSpeed">
+            <property name="title">
+             <string>RIGHT WHEEL SPEED</string>
+            </property>
+            <layout class="QVBoxLayout" name="verticalLayout_rws">
+             <item>
+              <widget class="QLabel" name="lblRightWheelSpeed">
+               <property name="styleSheet">
+                <string notr="true">QLabel{}</string>
+               </property>
+               <property name="text">
+                <string>0.0 km/h</string>
+               </property>
+               <property name="class" stdset="0">
+                <string>measure</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="lblRightWheelSpeedSub">
+               <property name="styleSheet">
+                <string notr="true">QLabel{color:#8ea2c8;}</string>
+               </property>
+               <property name="text">
+                <string>Right wheel speed</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item>
            <spacer name="spacer_over2">
             <property name="orientation">
              <enum>Qt::Horizontal</enum>
@@ -794,76 +918,86 @@ QSpinBox#spinLap QLineEdit {
         <item>
          <layout class="QVBoxLayout" name="verticalLayout_thermalLeft">
           <item>
-           <widget class="QGroupBox" name="grpPowerElectronics">
+           <widget class="QGroupBox" name="grpLeftInverterMosfets">
             <property name="title">
-             <string>POWER ELECTRONICS TEMPERATURES (°C)</string>
+             <string>LEFT INVERTER MOSFETS (°C)</string>
             </property>
-            <layout class="QGridLayout" name="grid_pe">
+            <layout class="QGridLayout">
              <item row="0" column="0">
-              <widget class="QLabel" name="labelLeftMos">
+              <widget class="QLabel" name="label">
                <property name="text">
-                <string>Left Inverter MOSFET</string>
+                <string>MOSFET 1</string>
                </property>
               </widget>
              </item>
              <item row="0" column="1">
-              <widget class="QProgressBar" name="progressLeftMosfet">
-               <property name="maximum">
-                <number>150</number>
+              <widget class="QLabel" name="lblLeftMosfet1">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
                </property>
-               <property name="value">
-                <number>0</number>
+               <property name="text">
+                <string>0.0 °C</string>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignCenter</set>
+               </property>
+               <property name="class" stdset="0">
+                <string>measure</string>
                </property>
               </widget>
              </item>
              <item row="1" column="0">
-              <widget class="QLabel" name="labelRightMos">
+              <widget class="QLabel" name="label">
                <property name="text">
-                <string>Right Inverter MOSFET</string>
+                <string>MOSFET 2</string>
                </property>
               </widget>
              </item>
              <item row="1" column="1">
-              <widget class="QProgressBar" name="progressRightMosfet">
-               <property name="maximum">
-                <number>150</number>
+              <widget class="QLabel" name="lblLeftMosfet2">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
                </property>
-               <property name="value">
-                <number>0</number>
+               <property name="text">
+                <string>0.0 °C</string>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignCenter</set>
+               </property>
+               <property name="class" stdset="0">
+                <string>measure</string>
                </property>
               </widget>
              </item>
              <item row="2" column="0">
-              <widget class="QLabel" name="labelLeftMotor">
+              <widget class="QLabel" name="label">
                <property name="text">
-                <string>Left Motor Stator</string>
+                <string>MOSFET 3</string>
                </property>
               </widget>
              </item>
              <item row="2" column="1">
-              <widget class="QProgressBar" name="progressLeftMotor">
-               <property name="maximum">
-                <number>180</number>
+              <widget class="QLabel" name="lblLeftMosfet3">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
                </property>
-               <property name="value">
-                <number>0</number>
-               </property>
-              </widget>
-             </item>
-             <item row="3" column="0">
-              <widget class="QLabel" name="labelRightMotor">
                <property name="text">
-                <string>Right Motor Stator</string>
+                <string>0.0 °C</string>
                </property>
-              </widget>
-             </item>
-             <item row="3" column="1">
-              <widget class="QProgressBar" name="progressRightMotor">
-               <property name="maximum">
-                <number>180</number>
+               <property name="alignment">
+                <set>Qt::AlignCenter</set>
                </property>
-               <property name="value">
-                <number>0</number>
+               <property name="class" stdset="0">
+                <string>measure</string>
                </property>
               </widget>
              </item>
@@ -871,42 +1005,147 @@ QSpinBox#spinLap QLineEdit {
            </widget>
           </item>
           <item>
-           <widget class="QGroupBox" name="grpCooling">
+           <widget class="QGroupBox" name="grpRightInverterMosfets">
             <property name="title">
-             <string>AMBIENT &amp; INTAKE</string>
+             <string>RIGHT INVERTER MOSFETS (°C)</string>
             </property>
-            <layout class="QGridLayout" name="grid_cooling">
+            <layout class="QGridLayout">
              <item row="0" column="0">
-              <widget class="QLabel" name="labelAmbient">
+              <widget class="QLabel" name="label">
                <property name="text">
-                <string>Ambient</string>
-               </property>
-               <property name="class" stdset="0">
-                <string>measure</string>
+                <string>MOSFET 1</string>
                </property>
               </widget>
              </item>
              <item row="0" column="1">
-              <widget class="QLabel" name="lblAmbient">
+              <widget class="QLabel" name="lblRightMosfet1">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
                <property name="text">
                 <string>0.0 °C</string>
                </property>
-              </widget>
-             </item>
-             <item row="1" column="0">
-              <widget class="QLabel" name="labelIntakeAir">
-               <property name="text">
-                <string>Intake Air</string>
+               <property name="alignment">
+                <set>Qt::AlignCenter</set>
                </property>
                <property name="class" stdset="0">
                 <string>measure</string>
                </property>
               </widget>
              </item>
-             <item row="1" column="1">
-              <widget class="QLabel" name="lblIntakeAir">
+             <item row="1" column="0">
+              <widget class="QLabel" name="label">
                <property name="text">
-                <string>—</string>
+                <string>MOSFET 2</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="1">
+              <widget class="QLabel" name="lblRightMosfet2">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="text">
+                <string>0.0 °C</string>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignCenter</set>
+               </property>
+               <property name="class" stdset="0">
+                <string>measure</string>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="0">
+              <widget class="QLabel" name="label">
+               <property name="text">
+                <string>MOSFET 3</string>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="1">
+              <widget class="QLabel" name="lblRightMosfet3">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="text">
+                <string>0.0 °C</string>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignCenter</set>
+               </property>
+               <property name="class" stdset="0">
+                <string>measure</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item>
+           <widget class="QGroupBox" name="grpMotorTemps">
+            <property name="title">
+             <string>MOTOR TEMPERATURES (°C)</string>
+            </property>
+            <layout class="QGridLayout">
+             <item row="0" column="0">
+              <widget class="QLabel" name="label">
+               <property name="text">
+                <string>Left Motor Stator</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="1">
+              <widget class="QLabel" name="lblLeftMotorTemp">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="text">
+                <string>0.0 °C</string>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignCenter</set>
+               </property>
+               <property name="class" stdset="0">
+                <string>measure</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="0">
+              <widget class="QLabel" name="label">
+               <property name="text">
+                <string>Right Motor Stator</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="1">
+              <widget class="QLabel" name="lblRightMotorTemp">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="text">
+                <string>0.0 °C</string>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignCenter</set>
+               </property>
+               <property name="class" stdset="0">
+                <string>measure</string>
                </property>
               </widget>
              </item>
@@ -918,61 +1157,194 @@ QSpinBox#spinLap QLineEdit {
         <item>
          <layout class="QVBoxLayout" name="verticalLayout_thermalRight">
           <item>
-           <widget class="QGroupBox" name="grpThermalMargin">
+           <widget class="QGroupBox" name="grpThermalSummary">
             <property name="title">
-             <string>THERMAL MARGIN (SUMMARY)</string>
+             <string>THERMAL SUMMARY</string>
             </property>
-            <layout class="QGridLayout" name="grid_margin">
+            <layout class="QGridLayout">
              <item row="0" column="0">
-              <widget class="QLabel" name="labelMarginInv">
+              <widget class="QLabel" name="label">
                <property name="text">
-                <string>Inverter MOSFET</string>
+                <string>Left Inverter MOSFET</string>
+               </property>
+               <property name="class" stdset="0">
+                <string>summaryText</string>
                </property>
               </widget>
              </item>
              <item row="0" column="1">
-              <widget class="QProgressBar" name="progressMarginInv">
-               <property name="maximum">
-                <number>100</number>
-               </property>
-               <property name="value">
-                <number>0</number>
-               </property>
-              </widget>
+              <layout class="QHBoxLayout">
+               <item>
+                <spacer>
+                 <property name="orientation">
+                  <enum>Qt::Horizontal</enum>
+                 </property>
+                 <property name="sizeType">
+                  <enum>QSizePolicy::Expanding</enum>
+                 </property>
+                 <property name="sizeHint" stdset="0">
+                  <size>
+                   <width>0</width>
+                   <height>0</height>
+                  </size>
+                 </property>
+                </spacer>
+               </item>
+               <item>
+                <widget class="QLabel" name="lblSummaryLeftMos">
+                 <property name="text">
+                  <string>0.0 °C</string>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignRight|Qt::AlignVCenter</set>
+                 </property>
+                 <property name="class" stdset="0">
+                  <string>measure</string>
+                 </property>
+                 <property name="class" stdset="0">
+                  <string>measure summaryValue</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
              </item>
              <item row="1" column="0">
-              <widget class="QLabel" name="labelMarginMotor">
+              <widget class="QLabel" name="label">
                <property name="text">
-                <string>Motor Stator</string>
+                <string>Right Inverter MOSFET</string>
+               </property>
+               <property name="class" stdset="0">
+                <string>summaryText</string>
                </property>
               </widget>
              </item>
              <item row="1" column="1">
-              <widget class="QProgressBar" name="progressMarginMotor">
-               <property name="maximum">
-                <number>100</number>
-               </property>
-               <property name="value">
-                <number>0</number>
-               </property>
-              </widget>
+              <layout class="QHBoxLayout">
+               <item>
+                <spacer>
+                 <property name="orientation">
+                  <enum>Qt::Horizontal</enum>
+                 </property>
+                 <property name="sizeType">
+                  <enum>QSizePolicy::Expanding</enum>
+                 </property>
+                 <property name="sizeHint" stdset="0">
+                  <size>
+                   <width>0</width>
+                   <height>0</height>
+                  </size>
+                 </property>
+                </spacer>
+               </item>
+               <item>
+                <widget class="QLabel" name="lblSummaryRightMos">
+                 <property name="text">
+                  <string>0.0 °C</string>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignRight|Qt::AlignVCenter</set>
+                 </property>
+                 <property name="class" stdset="0">
+                  <string>measure</string>
+                 </property>
+                 <property name="class" stdset="0">
+                  <string>measure summaryValue</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
              </item>
              <item row="2" column="0">
-              <widget class="QLabel" name="labelMarginBattery">
+              <widget class="QLabel" name="label">
                <property name="text">
-                <string>Battery Pack</string>
+                <string>Motor Stator</string>
+               </property>
+               <property name="class" stdset="0">
+                <string>summaryText</string>
                </property>
               </widget>
              </item>
              <item row="2" column="1">
-              <widget class="QProgressBar" name="progressMarginBattery">
-               <property name="maximum">
-                <number>100</number>
+              <layout class="QHBoxLayout">
+               <item>
+                <spacer>
+                 <property name="orientation">
+                  <enum>Qt::Horizontal</enum>
+                 </property>
+                 <property name="sizeType">
+                  <enum>QSizePolicy::Expanding</enum>
+                 </property>
+                 <property name="sizeHint" stdset="0">
+                  <size>
+                   <width>0</width>
+                   <height>0</height>
+                  </size>
+                 </property>
+                </spacer>
+               </item>
+               <item>
+                <widget class="QLabel" name="lblSummaryMotor">
+                 <property name="text">
+                  <string>0.0 °C</string>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignRight|Qt::AlignVCenter</set>
+                 </property>
+                 <property name="class" stdset="0">
+                  <string>measure</string>
+                 </property>
+                 <property name="class" stdset="0">
+                  <string>measure summaryValue</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
+             <item row="3" column="0">
+              <widget class="QLabel" name="label">
+               <property name="text">
+                <string>Ambient</string>
                </property>
-               <property name="value">
-                <number>0</number>
+               <property name="class" stdset="0">
+                <string>summaryText</string>
                </property>
               </widget>
+             </item>
+             <item row="3" column="1">
+              <layout class="QHBoxLayout">
+               <item>
+                <spacer>
+                 <property name="orientation">
+                  <enum>Qt::Horizontal</enum>
+                 </property>
+                 <property name="sizeType">
+                  <enum>QSizePolicy::Expanding</enum>
+                 </property>
+                 <property name="sizeHint" stdset="0">
+                  <size>
+                   <width>0</width>
+                   <height>0</height>
+                  </size>
+                 </property>
+                </spacer>
+               </item>
+               <item>
+                <widget class="QLabel" name="lblSummaryAmbient">
+                 <property name="text">
+                  <string>0.0 °C</string>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignRight|Qt::AlignVCenter</set>
+                 </property>
+                 <property name="class" stdset="0">
+                  <string>measure</string>
+                 </property>
+                 <property name="class" stdset="0">
+                  <string>measure summaryValue</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
              </item>
             </layout>
            </widget>
