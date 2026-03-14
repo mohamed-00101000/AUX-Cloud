@@ -7,7 +7,7 @@ This codebase is part of the vehicle that will hit the track in **January 2026**
 
 ---
 
-## 📌 About the Project
+##  About the Project
 Our system integrates:
 - **STM32 Microcontroller** – Collects raw sensor data from the car (temperature, GPS, voltage, speed, etc.).
 - **ESP32 Module** – Manages Wi-Fi and communication with the cloud server.
@@ -18,7 +18,7 @@ Our system integrates:
     This modular design ensures that both the **driver** and the **station team** have synchronized access to live vehicle data, enabling safe and optimal operation on track.
 ---
 
-## 📂 Repository Structure
+##  Repository Structure
 
 ```
 
@@ -36,23 +36,23 @@ Our system integrates:
 
 ---
 
-## ⚙️ Running the System
+##  Running the System
 
 The system has **two sides**:
 
-### 🚙 Car Side
+###  Car Side
 1. STM32 collects telemetry (speed, temperatures, GPS, etc.).
 2. ESP32 receives the data via UART.
 3. ESP32 formats the data into JSON and uploads it to the cloud via FTP.
 
-### 🖥️ Station Side
+###  Station Side
 1. A Python script (`getftp.py`) downloads the latest telemetry file from the cloud.
 2. Data is parsed into `data.json` and used by:
    - The desktop monitoring app  
 
 ---
 
-## 🔧 Getting Started
+##  Getting Started
 
 ### Clone the Repository
 ```bash
@@ -84,14 +84,14 @@ cd AUX-Cloud
 
 ---
 
-## 📅 Road to 2026
+##  Road to 2026
 
 This system is under continuous development and will be **deployed in our racing vehicle for the January 2026 competition**.
 Stay tuned for updates as we refine performance, reliability, and cloud integration.
 
 ---
 
-## 📜 License
+##  License
 
 This project is developed for research, competition, and educational purposes under the ASU Racing Team.
 Usage outside the team should respect proper attribution.
