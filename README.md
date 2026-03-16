@@ -3,7 +3,7 @@
 Welcome to the official repository of the **ASU Racing Team**.  
 We are a student-led engineering team working on cutting-edge vehicle systems that combine **embedded systems, cloud computing, and real-time telemetry**.  
 
-This codebase is part of the vehicle that will hit the track in **January 2026**, powering our **Vehicle-to-Cloud communication system** and providing real-time data to the driver and monitoring team.
+This codebase is part of the vehicle that will hit the track in **January 2027**, powering our **Vehicle-to-Cloud communication system** and providing real-time data to the driver and monitoring team.
 
 ![Car Electrical System](https://github.com/user-attachments/assets/9ef5c911-bc04-40de-bbfa-e419ce464b30)
 ---
