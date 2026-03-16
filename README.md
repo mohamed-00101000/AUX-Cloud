@@ -85,9 +85,9 @@ cd AUX-Cloud
 
 ---
 
-##  Road to 2026
+##  Road to 2027
 
-This system is under continuous development and will be **deployed in our racing vehicle for the January 2026 competition**.
+This system is under continuous development and will be **deployed in our racing vehicle for the January 2027 competition**.
 Stay tuned for updates as we refine performance, reliability, and cloud integration.
 
 ---
